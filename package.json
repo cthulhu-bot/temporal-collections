@@ -4,17 +4,17 @@
   "description": "",
   "main": "core.js",
   "scripts": {
-    "test": "jasmine",
+    "test": "babel-node spec/run.js",
     "build": "babel src -d lib && node lib/core.js"
   },
   "keywords": [],
   "author": "Joshua Stupplebeen (cthulhu-bot)",
   "license": "ISC",
   "dependencies": {
-    "babel-cli": "^6.24.0",
-    "babel-preset-es2015": "^6.24.0"
+    "babel-cli": "^6.24.0"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.6.1",
     "jasmine": "^2.8.0"
   }
 }
