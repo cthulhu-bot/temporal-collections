@@ -1,3 +1,5 @@
-test('empty test', () => {
-    expect(true).toBe(false);
-});
+describe('empty test', () => {
+    it('should fail', () => {
+        expect(true).toBe(false)
+    })
+})
