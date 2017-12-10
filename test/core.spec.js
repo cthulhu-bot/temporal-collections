@@ -1,7 +1,7 @@
-import { foo } from '../src/core'
+const core = require('../src/core')
 
 describe('empty test', () => {
     it('should fail', () => {
-        expect(foo()).toBe('insert code here')
+        expect(core.foo()).toBe('insert code here')
     })
 })
