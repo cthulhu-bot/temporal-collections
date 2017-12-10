@@ -1,3 +1,11 @@
-const foo = () => { console.log('you haven\'t done anything yet'); }
+const foo = () => {
+    const bar = 'insert code here'
+    console.log(bar)
+    return bar
+}
 
-foo();
+foo()
+
+module.exports = {
+    foo
+}

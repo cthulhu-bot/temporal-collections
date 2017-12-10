@@ -1,5 +1,7 @@
+import { foo } from '../src/core'
+
 describe('empty test', () => {
     it('should fail', () => {
-        expect(true).toBe(false)
+        expect(foo()).toBe('insert code here')
     })
 })
