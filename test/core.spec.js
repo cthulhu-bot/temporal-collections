@@ -1,7 +1,8 @@
-import { foo } from '../src/core'
+import PartialPersistence from '../src/core'
 
 describe('empty test', () => {
-    it('should fail', () => {
-        expect(foo()).toBe('insert code here')
+    it('should pass', () => {
+        expect(PartialPersistence.List()).toEqual([])
+        expect(PartialPersistence.Map()).toEqual({})
     })
 })
