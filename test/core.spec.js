@@ -1,8 +1,9 @@
-import PartialPersistence from '../src/core'
+import { List, Map } from '../src/PartialPersistence'
 
-describe('empty test', () => {
-    it('should pass', () => {
-        expect(PartialPersistence.List()).toEqual([])
-        expect(PartialPersistence.Map()).toEqual({})
+describe('Partially Persistent List', () => {
+    it('should add things', () => {
+        let foo = List([]);
+
+        expect(foo.push(1)).toEqual([1])
     })
 })
