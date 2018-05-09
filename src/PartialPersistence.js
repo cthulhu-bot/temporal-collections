@@ -1,3 +1,7 @@
+// applyModsPartial
+// instead of applying all mods if the array is queried like: HEAD~2
+// only the mods up until mods.length-2 should be applied
+
 const applyMods = (init = [], mods = []) => {
     const removeElement = (arr, el) => {
     }
