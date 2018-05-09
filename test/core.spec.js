@@ -1,4 +1,4 @@
-import { List, Map } from '../src/PartialPersistence'
+import { List } from '../src/PartialPersistence'
 
 describe('Partially Persistent List', () => {
     it('should add things', () => {

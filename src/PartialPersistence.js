@@ -3,7 +3,9 @@ const applyMods = (init = [], mods = []) => {
     }
 
     const arr = mods.reduce((acc, mod) => {
-        [modifier, element] = mod
+        let modifier, element
+        ({ modifier, element } = mod)
+
         if (modifier === '+') {
             acc.push(element)
         } else if (modifier === '-') {
@@ -15,16 +17,17 @@ const applyMods = (init = [], mods = []) => {
     return arr
 }
 
-const List = (init = []) => {
+export const List = (init = []) => {
     let persistentList = init
+    let mods = []
 
     return {
         push: (val) => {
-            // persistentList.push(internalList)
-            // internalList.push(val)
-            // console.log('internalList: ', internalList)
-            // console.log('persistentList: ', persistentList)
-            // return internalList[internalList.length].concat([val])
+            mods.push({
+                modifier: '+',
+                element: val
+            })
+            return applyMods(persistentList, mods)
         },
         pop: () => [],
     }
@@ -33,10 +36,3 @@ const List = (init = []) => {
 const Map = () => {
     return {}
 }
-
-const PartialPersistence = {
-    List,
-    Map,
-}
-
-export default PartialPersistence
