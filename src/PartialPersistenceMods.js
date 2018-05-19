@@ -26,14 +26,14 @@ export const List = (init = []) => {
     let mods = []
 
     return {
-        push: (val) => {
+        add: (val) => {
             mods.push({
                 modifier: '+',
                 element: val
             })
             return applyMods(persistentList, mods)
         },
-        pop: () => [],
+        remove: () => [],
     }
 }
 
