@@ -1,15 +1,19 @@
-import { partiallyPersistentNode } from './nodes'
+import { persistentNode } from './nodes'
 
 export const List = (initialList) => {
-    const rootNode = partiallyPersistentNode(initialList)
-    let persistentList = [rootNode]
+    const rootNode = persistentNode(initialList)
+    const lastNode = () => {
+        let node = rootNode
+        while (node.next !== null) {
+            node = node.next
+        }
+        return node
+    }
 
     return {
         add: (val) => {
-            const newNode = partiallyPersistentNode(val)
-            persistentList.push(newNode)
-            console.log('last list item: ', persistentList[persistentList.length-1])
-            return persistentList[persistentList.length]
+            lastNode().next = persistentNode(lastNode().val.concat([val]))
+            return lastNode().val
         },
         remove: (val) => {
         },

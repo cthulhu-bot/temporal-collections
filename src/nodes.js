@@ -1,7 +1,6 @@
-export const partiallyPersistentNode = (val, next, prev, isRoot) => ({
-    val: [val],
-    next: partiallyPersistentNode,
-    prev: partiallyPersistentNode,
-    isRoot: false,
+export const persistentNode = (val) => ({
+    val: val,
+    next: null,
+    prev: null,
     inspect: `[${val}]`
 });
