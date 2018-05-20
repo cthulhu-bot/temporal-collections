@@ -11,11 +11,16 @@ export const List = (initialList) => {
     }
 
     return {
-        add: (val) => {
-            lastNode().next = persistentNode(lastNode().val.concat([val]))
+        add: (addVal) => {
+            lastNode().next = persistentNode(lastNode().val.concat([addVal]))
             return lastNode().val
         },
-        remove: (val) => {
+        remove: (idx) => {
+            const lastVal = lastNode().val
+            while (lastVal.indexOf(removeVal) !== -1) {
+                lastVal.splice(lastVal.indexOf(removeVal), 1, )
+            }
+            lastNode().next = persistentNode(lastNode().val.slice())
         },
         inspect: () => `foo`
     }
