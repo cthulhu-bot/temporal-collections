@@ -22,6 +22,14 @@ export const List = (initialList) => {
             }
             lastNode().next = persistentNode(lastNode().val.slice())
         },
-        inspect: () => `foo`
+        inspect: () => {
+            let node = rootNode
+            let out = ''
+            while (node !== null) {
+                out += node.toString()
+                node = node.next
+            }
+            return out
+        }
     }
 }
