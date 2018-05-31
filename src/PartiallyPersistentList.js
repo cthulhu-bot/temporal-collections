@@ -1,6 +1,44 @@
 import { persistentNode } from './nodes'
 
-export const List = (initialList) => {
+export class List {
+    constructor(initialList) {
+        this.rootNode = persistentNode(initialList)
+    }
+
+    // will need performance testing
+    lastNode() {
+        let node = this.rootNode
+        while (node.next !== null) {
+            node = node.next
+        }
+        return node
+    }
+
+    add(addVal) {
+        this.lastNode().next = persistentNode(this.lastNode().val.concat([addVal]))
+        return this.lastNode().val
+    }
+
+    remove(idx) {
+        const lastVal = this.lastNode().val
+        while (lastVal.indexOf(removeVal) !== -1) {
+            lastVal.splice(lastVal.indexOf(removeVal), 1, )
+        }
+        this.lastNode().next = persistentNode(this.lastNode().val.slice())
+    }
+
+    inspect() {
+        let node = this.rootNode
+        let out = ''
+        while (node !== null) {
+            out += node.toString()
+            node = node.next
+        }
+        return out
+    }
+}
+
+const ListFUnc = (initialList) => {
     const rootNode = persistentNode(initialList)
     const lastNode = () => {
         let node = rootNode
@@ -30,6 +68,6 @@ export const List = (initialList) => {
                 node = node.next
             }
             return out
-        }
+        },
     }
 }
