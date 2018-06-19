@@ -38,7 +38,7 @@ export class List {
     }
 }
 
-const ListFUnc = (initialList) => {
+export const ListFunc = (initialList) => {
     const rootNode = persistentNode(initialList)
     const lastNode = () => {
         let node = rootNode
