@@ -1,45 +1,7 @@
 import { persistentNode } from './nodes'
 
-export class List {
-    constructor(initialList) {
-        this.rootNode = persistentNode(initialList)
-    }
-
-    // will need performance testing
-    lastNode() {
-        let node = this.rootNode
-        while (node.next !== null) {
-            node = node.next
-        }
-        return node
-    }
-
-    add(addVal) {
-        this.lastNode().next = persistentNode(this.lastNode().val.concat([addVal]))
-        return this.lastNode().val
-    }
-
-    remove(idx) {
-        const lastVal = this.lastNode().val
-        while (lastVal.indexOf(removeVal) !== -1) {
-            lastVal.splice(lastVal.indexOf(removeVal), 1, )
-        }
-        this.lastNode().next = persistentNode(this.lastNode().val.slice())
-    }
-
-    inspect() {
-        let node = this.rootNode
-        let out = ''
-        while (node !== null) {
-            out += node.toString()
-            node = node.next
-        }
-        return out
-    }
-}
-
-export const ListFunc = (initialList) => {
-    const rootNode = persistentNode(initialList)
+export const List = (initialList) => {
+    const rootNode = new persistentNode(initialList)
     const lastNode = () => {
         let node = rootNode
         while (node.next !== null) {
@@ -49,16 +11,24 @@ export const ListFunc = (initialList) => {
     }
 
     return {
-        add: (addVal) => {
-            lastNode().next = persistentNode(lastNode().val.concat([addVal]))
+        toJS: () => {
             return lastNode().val
         },
-        remove: (idx) => {
-            const lastVal = lastNode().val
+        add: (addVal) => {
+            lastNode().next = new persistentNode(lastNode().val.concat([addVal]))
+            return lastNode().val
+        },
+        pop: (idx) => {
+            if (rootNode === null) {
+                throw "Attempted to remove from empty list"
+            }
+            if (rootNode.val === lastNode().val) {
+                rootNode = null
+            }
             while (lastVal.indexOf(removeVal) !== -1) {
                 lastVal.splice(lastVal.indexOf(removeVal), 1, )
             }
-            lastNode().next = persistentNode(lastNode().val.slice())
+            lastNode().next = new persistentNode(lastNode().val.slice())
         },
         inspect: () => {
             let node = rootNode
@@ -68,6 +38,8 @@ export const ListFunc = (initialList) => {
                 node = node.next
             }
             return out
+        },
+        prev: (num) => {
         },
     }
 }
