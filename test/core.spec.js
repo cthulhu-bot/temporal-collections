@@ -2,9 +2,9 @@ import { List } from "../src/PartiallyPersistentList";
 
 describe("Partially Persistent List", () => {
     it("empty list constructor should return empty array", () => {
-        let foo = List([])
-        expect(foo.toJS()).toEqual([])
-    })
+        let foo = List([]);
+        expect(foo.toJS()).toEqual([]);
+    });
     it("list constructor and toJS work", () => {
         let foo = List([1]);
         expect(foo.toJS()).toEqual([1]);
@@ -18,10 +18,10 @@ describe("Partially Persistent List", () => {
         expect(foo.add(2)).toEqual([1, 2]);
     });
     it("removing from an empty list should throw exception", () => {
-        let foo = List([])
-        expect(foo.remove()).toThrow(new Error('Attempted to remove from empty list'))
-    })
-    it("should show all past values upon inspection", () => {
-
+        let foo = List([]);
+        expect(foo.remove()).toThrow(
+            new Error("Attempted to remove from empty list")
+        );
     });
+    it("should show all past values upon inspection", () => {});
 });

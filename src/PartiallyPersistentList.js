@@ -1,7 +1,7 @@
 import { persistentNode } from './nodes'
 
 export const List = (initialList) => {
-    const rootNode = new persistentNode(initialList)
+    let rootNode = new persistentNode(initialList)
     const lastNode = () => {
         let node = rootNode
         while (node.next !== null) {
@@ -14,17 +14,19 @@ export const List = (initialList) => {
         toJS: () => {
             return lastNode().val
         },
-        add: (addVal) => {
+        push: (addVal) => {
             lastNode().next = new persistentNode(lastNode().val.concat([addVal]))
             return lastNode().val
         },
-        pop: (idx) => {
+        pop: () => {
             if (rootNode === null) {
                 throw "Attempted to remove from empty list"
             }
             if (rootNode.val === lastNode().val) {
                 rootNode = null
             }
+
+            const lastVal = lastNode().val
             while (lastVal.indexOf(removeVal) !== -1) {
                 lastVal.splice(lastVal.indexOf(removeVal), 1, )
             }
