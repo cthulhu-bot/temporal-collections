@@ -29,6 +29,10 @@ inspect(indexBack)
 add
 remove
 
+temporal actions:
+inspect
+inspect(indexBack)
+
 ### Full Persistence
 
 ### Confluent Persistence

@@ -19,7 +19,8 @@ export const List = (initialList) => {
             return lastNode().val
         },
         pop: () => {
-            if (rootNode === null) {
+            if (rootNode === null
+                || rootNode.val.length === 0) {
                 throw "Attempted to remove from empty list"
             }
             if (rootNode.val === lastNode().val) {
