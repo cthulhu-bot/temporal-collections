@@ -33,7 +33,16 @@ export const List = (initialList) => {
             }
             lastNode().next = new persistentNode(lastNode().val.slice())
         },
+        head: () => {},
+        tail: () => {},
+        shift: () => {},
+        unshift: () => {},
+        slice: () => {},
+        splice: () => {},
         inspect: () => {
+            return `Temporal.PartiallyPersistentList(${rootNode.val})`
+        },
+        t_inspect: () => {
             let node = rootNode
             let out = ''
             while (node !== null) {

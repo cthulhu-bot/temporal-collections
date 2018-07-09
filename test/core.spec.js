@@ -19,6 +19,7 @@ describe("Partially Persistent List", () => {
     });
     it("removing from an empty list should throw exception", () => {
         let foo = List([]);
+        console.log(foo)
         expect(foo.pop).toThrow("Attempted to remove from empty list");
     });
     it("should show all past values upon inspection", () => {});

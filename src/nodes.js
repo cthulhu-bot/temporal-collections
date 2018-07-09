@@ -6,7 +6,7 @@ export class persistentNode {
     }
 
     toString() {
-        this.next === null ? `[${this.val}]` : `[${this.val}] -> `
+        return this.next === null ? `[${this.val}]` : `[${this.val}] -> `
     }
 }
 

@@ -7,6 +7,7 @@
 #### Partially Persistent List API
 
 read only:
+toJS
 head
 tail
 
@@ -22,7 +23,9 @@ temporal actions:
 These are read only due to partial persistence restraints
 
 inspect
-inspect(indexBack)
+prev(indexBack)
+thead
+ttail
 
 #### Partially Persistent Map API
 
@@ -31,7 +34,7 @@ remove
 
 temporal actions:
 inspect
-inspect(indexBack)
+prev(indexBack)
 
 ### Full Persistence
 
