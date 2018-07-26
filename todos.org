@@ -1,0 +1,34 @@
+* IN-PROGRESS temporal-collections
+
+** IN-PROGRESS partial persistence
+*** IN-PROGRESS partial persistent list
+**** DONE implement add
+**** TODO refactor to classes (why did we need this?, internal stuff?)
+**** TODO implement index access (oh shit forgot about this one)
+**** TODO might not need to do the above, instead investigate iterable, or extend and override array
+**** TODO return last list in persistent list, needs classes, object return not working
+**** TODO include operation in node that resulted in next node
+**** TODO what is api for previous list versions (still needed?)
+**** TODO what is api for future list versions (still needed?)
+**** TODO visualization of time slice list
+**** TODO large data testing, see if compression is necessary?
+**** TODO compression back off?
+*** TODO partial persistent map
+
+** TODO full persistence
+*** full persistence list
+**** what is api for moving backwards in time
+**** what is api for altering a previous frame?
+**** what is the concept of a frame? (docs)
+
+** TODO confluently persistence
+*** confluently persistent list
+**** what is the api for merging 2 frames?
+**** how to handle frame conflicts?
+
+** TODO partial retroactivity
+*** partially retroactive list
+
+** TODO full retroactivity
+*** fully retroactive list
+** TODO search backwards
