@@ -1,18 +1,29 @@
 * IN-PROGRESS temporal-collections
 
 ** IN-PROGRESS partial persistence
+
 *** IN-PROGRESS partial persistent list
-**** DONE implement add
-**** TODO refactor to classes (why did we need this?, internal stuff?)
-**** TODO implement index access (oh shit forgot about this one)
-**** TODO might not need to do the above, instead investigate iterable, or extend and override array
-**** TODO return last list in persistent list, needs classes, object return not working
-**** TODO include operation in node that resulted in next node
-**** TODO what is api for previous list versions (still needed?)
-**** TODO what is api for future list versions (still needed?)
-**** TODO visualization of time slice list
-**** TODO large data testing, see if compression is necessary?
-**** TODO compression back off?
+**** Actual List
+****** DONE implement add
+****** TODO implement length
+****** TODO implement remove (remove from head, throw an exception)
+
+**** Persistent List
+****** TODO implement head
+****** TODO implement tail
+
+**** Misc
+****** TODO refactor to classes (why did we need this?, internal stuff?)
+****** TODO implement index access (oh shit forgot about this one)
+****** TODO might not need to do the above, instead investigate iterable, or extend and override array
+****** TODO return last list in persistent list, needs classes, object return not working
+****** TODO include operation in node that resulted in next node
+****** TODO what is api for previous list versions (still needed?)
+****** TODO what is api for future list versions (still needed?)
+****** TODO visualization of time slice list
+****** TODO large data testing, see if compression is necessary?
+****** TODO compression back off?
+
 *** TODO partial persistent map
 
 ** TODO full persistence

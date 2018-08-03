@@ -1,0 +1,5 @@
+fix the length tests and return a node from push
+punting on removal, need to finalize api
+need to fix pop/remove, was trying to remove from temporal collection instead of val
+look at PPList for list of methods to implement
+do shift and unshift still make sense?
