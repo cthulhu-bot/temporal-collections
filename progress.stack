@@ -1,6 +1,4 @@
-Missing class properties transform.
-need to fix the damn babel class thing
-actually need to switch to class implementation
+fix the inspect now that we're using classes
 should the toJS method return a js representation of the entire thing?
 or just the last node?
 working on remove from index

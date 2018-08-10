@@ -14,10 +14,10 @@ describe('Partially Persistent List', () => {
 
   describe('should add things', () => {
     it('to an empty list', () => {
-      let foo = new List([])
-      const bar = foo.add(1).add(1)
+      const foo = new List([])
+      const bar = foo.add(1)
       console.log('bar: ', bar)
-      // expect(foo.add(1)).toEqual(`Temporal.PartiallyPersistentList([1])`)
+      expect(bar).toEqual(`Temporal.PartiallyPersistentList([1])`)
     })
     // it('to a non-empty list', () => {
     //   let foo = List([1])

@@ -1,8 +1,6 @@
 import { persistentNode } from './nodes'
 
 export class List {
-  static rootNode
-
   constructor(initialList) {
     this.rootNode = new persistentNode(initialList || [])
   }
@@ -20,18 +18,20 @@ export class List {
   }
 
   add(addVal) {
-    this.lastNode().next = new persistentNode(lastNode().val.concat([addVal]))
+    this.lastNode().next = new persistentNode(
+      this.lastNode().val.concat([addVal]),
+    )
     return this
   }
 
   remove(idx) {
-    if (lastNode().val.length === 0) {
+    if (this.lastNode().val.length === 0) {
       throw 'Attempted to remove from empty list'
     }
 
-    const lastVal = lastNode().val
+    const lastVal = this.lastNode().val
     lastVal.delete(idx)
-    lastNode().next = new persistentNode(lastVal)
+    this.lastNode().next = new persistentNode(lastVal)
     return this
   }
   head() {}
@@ -41,7 +41,7 @@ export class List {
   slice() {}
   splice() {}
   inspect() {
-    return `Temporal.PartiallyPersistentList(${lastNode().val || `null`})`
+    return `Temporal.PartiallyPersistentList(${this.lastNode().val || `null`})`
   }
   tInspect() {
     let node = rootNode
@@ -54,11 +54,11 @@ export class List {
   }
   prev(num) {}
   length() {
-    return lastNode().val.length
+    return this.lastNode().val.length
   }
   tLength() {
     let node = rootNode
-      length = 0
+    length = 0
     while (node.next !== null) {
       node = node.next
       length++
