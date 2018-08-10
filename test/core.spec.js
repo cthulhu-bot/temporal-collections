@@ -15,14 +15,18 @@ describe('Partially Persistent List', () => {
   describe('should add things', () => {
     it('to an empty list', () => {
       const foo = new List([])
+      expect(foo.toJS()).toEqual([])
+      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([])`)
+
       const bar = foo.add(1)
       expect(bar.toJS()).toEqual([1])
       expect(bar.toString()).toEqual(`Temporal.PartiallyPersistentList([1])`)
     })
-    // it('to a non-empty list', () => {
-    //   let foo = List([1])
-    //   expect(foo.add(2)).toEqual([1, 2])
-    // })
+
+    it('and be able to chain adds', () => {
+      const foo = new List([]).add(1).add(2)
+      expect(foo.toJS()).toEqual([1, 2])
+    })
   })
 
   // describe('should remove things', () => {
