@@ -40,8 +40,11 @@ export class List {
   unshift() {}
   slice() {}
   splice() {}
+  toString() {
+    return `Temporal.PartiallyPersistentList([${this.lastNode().val}])`
+  }
   inspect() {
-    return `Temporal.PartiallyPersistentList(${this.lastNode().val || `null`})`
+    return `Temporal.PartiallyPersistentList([${this.lastNode().val}])`
   }
   tInspect() {
     let node = rootNode

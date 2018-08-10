@@ -16,8 +16,8 @@ describe('Partially Persistent List', () => {
     it('to an empty list', () => {
       const foo = new List([])
       const bar = foo.add(1)
-      console.log('bar: ', bar)
-      expect(bar).toEqual(`Temporal.PartiallyPersistentList([1])`)
+      expect(bar.toJS()).toEqual([1])
+      expect(bar.toString()).toEqual(`Temporal.PartiallyPersistentList([1])`)
     })
     // it('to a non-empty list', () => {
     //   let foo = List([1])
