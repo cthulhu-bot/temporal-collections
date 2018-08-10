@@ -1,5 +1,8 @@
-fix the length tests and return a node from push
-punting on removal, need to finalize api
-need to fix pop/remove, was trying to remove from temporal collection instead of val
-look at PPList for list of methods to implement
+Missing class properties transform.
+need to fix the damn babel class thing
+actually need to switch to class implementation
+should the toJS method return a js representation of the entire thing?
+or just the last node?
+working on remove from index
+would 2d array storage make more sense than linkedlist?
 do shift and unshift still make sense?
