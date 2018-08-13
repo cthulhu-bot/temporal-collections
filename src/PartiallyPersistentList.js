@@ -34,11 +34,21 @@ export class List {
     this.lastNode().next = new persistentNode(lastVal)
     return this
   }
+
+  length() {
+    return this.lastNode().val.length
+  }
   head() {}
   tail() {}
+  indexOf(x) {}
+  map(f) {}
+  filter(f) {}
+  reduce(f, init) {}
+
+  // Nice to haves
+  slice() {}
   shift() {}
   unshift() {}
-  slice() {}
   splice() {}
   toString() {
     return `Temporal.PartiallyPersistentList([${this.lastNode().val}])`
@@ -56,9 +66,6 @@ export class List {
     return out
   }
   prev(num) {}
-  length() {
-    return this.lastNode().val.length
-  }
   tLength() {
     let node = rootNode
     length = 0
@@ -68,9 +75,6 @@ export class List {
     }
     return length
   }
-  map(f) {}
-  filter(f) {}
-  reduce(f) {}
   tmap(f) {}
   tfilter(f) {}
   treduce(f) {}

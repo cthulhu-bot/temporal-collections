@@ -1,6 +1,6 @@
-fix the inspect now that we're using classes
-should the toJS method return a js representation of the entire thing?
-or just the last node?
+how should we be testing the inherent additive node behavior?
+should it be in every test or separate tests?
+por que no los dos?
 working on remove from index
 would 2d array storage make more sense than linkedlist?
 do shift and unshift still make sense?

@@ -1,5 +1,7 @@
 # temporal-collections
 
+
+
 ## Persistent Data Structures
 
 ### Partial Persistence
