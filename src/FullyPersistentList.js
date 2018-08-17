@@ -1,8 +1,9 @@
 import { persistentNode } from './nodes'
 
-export class PartiallyPersistentList {
+export class FullyPersistentList {
   constructor(initialList) {
     this.rootNode = new persistentNode(initialList || [])
+    this.current = this.rootNode
   }
 
   lastNode() {
@@ -40,45 +41,4 @@ export class PartiallyPersistentList {
   }
 
   prev(num) {}
-
-  // Nice to haves
-  head() {}
-  tail() {}
-  indexOf(x) {}
-  map(f) {}
-  filter(f) {}
-  reduce(f, init) {}
-
-  // stretch goals
-  slice() {}
-  shift() {}
-  unshift() {}
-  splice() {}
-  toString() {
-    return `Temporal.PartiallyPersistentList([${this.lastNode().val}])`
-  }
-  inspect() {
-    return `Temporal.PartiallyPersistentList([${this.lastNode().val}])`
-  }
-  tInspect() {
-    let node = rootNode
-    let out = ''
-    while (node !== null) {
-      out += node.toString()
-      node = node.next
-    }
-    return out
-  }
-  tLength() {
-    let node = rootNode
-    length = 0
-    while (node.next !== null) {
-      node = node.next
-      length++
-    }
-    return length
-  }
-  tmap(f) {}
-  tfilter(f) {}
-  treduce(f) {}
 }
