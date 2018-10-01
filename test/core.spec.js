@@ -3,18 +3,18 @@ import { List } from '../src/PartiallyPersistentList'
 describe('Partially Persistent List', () => {
   describe('constructor', () => {
     it('with no elements should return empty array', () => {
-      let foo = new List([])
+      let foo = List([])
       expect(foo.toJS()).toEqual([])
     })
     it('with an element and toJS work', () => {
-      let foo = new List([1])
+      let foo = List([1])
       expect(foo.toJS()).toEqual([1])
     })
   })
 
   describe('should add things', () => {
     it('to an empty list', () => {
-      const foo = new List([])
+      const foo = List([])
       expect(foo.toJS()).toEqual([])
       expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([])`)
 
@@ -24,7 +24,9 @@ describe('Partially Persistent List', () => {
     })
 
     it('and be able to chain adds', () => {
-      const foo = new List([]).add(1).add(2)
+      const foo = List([])
+        .add(1)
+        .add(2)
       expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([1,2])`)
       expect(foo.toJS()).toEqual([1, 2])
     })

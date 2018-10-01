@@ -1,6 +1,6 @@
 import { persistentNode } from './nodes'
 
-export class PartiallyPersistentList {
+class PartiallyPersistentList {
   constructor(initialList) {
     this.rootNode = new persistentNode(initialList || [])
   }
@@ -81,4 +81,9 @@ export class PartiallyPersistentList {
   tmap(f) {}
   tfilter(f) {}
   treduce(f) {}
+}
+
+const List = (initialList) => new PartiallyPersistentList(initialList)
+module.exports = {
+  List,
 }
