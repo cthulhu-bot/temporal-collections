@@ -32,6 +32,40 @@ describe('Partially Persistent List', () => {
     })
   })
 
+  describe('prev', () => {
+    it('should return undefined on an empty list', () => {})
+    it('should return undefined on a collection with a single commit', () => {})
+    it('should return the previous state of the list when the list has been operated on once', () => {})
+    it('should be able to go back twice on a list that has been operated on twice', () => {})
+  })
+
+  describe('next', () => {
+    it('should return undefined on an empty list', () => {})
+  })
+
+  describe('present', () => {
+    it('should return undefined on an empty list', () => {})
+    it('should return HEAD on a collection with one commit', () => {})
+    it('should return the appropriate value when moved backwards through time')
+  })
+
+  describe('past', () => {
+    it('should return undefined on an empty list', () => {})
+    it('should return undefined on a collection with one commit', () => {})
+    it('should return a list with 1 element on a collection with 1 commit and present set to HEAD', () => {})
+  })
+
+  describe('future', () => {
+    it('should return undefined on an empty list', () => {})
+    it('should return undefined when present is set to HEAD', () => {})
+    it('should return one value when present is moved to the prev of HEAD', () => {})
+  })
+
+  describe('head', () => {
+    it('should return undefined on an empty list', () => {})
+    it('should be equal to present on a collection with one commit', () => {})
+  })
+
   describe('should remove things', () => {
     it('should throw an exception trying to remove from an empty collection', () => {})
     it('should remove from a collection with 1 element', () => {})
@@ -62,25 +96,4 @@ describe('Partially Persistent List', () => {
     it('should apply the function and return a new list', () => {})
     it('should also append a new node', () => {})
   })
-
-  // describe('should remove things', () => {
-  //   it('removing from an empty list should throw an exception', () => {
-  //     let foo = List([])
-  //     expect(foo.pop).toThrow('Attempted to remove from empty list')
-  //   })
-  // })
-  // it('empty list should return length of 0', () => {
-  //   let foo = List([])
-  //   expect(foo.length()).toEqual(0)
-  // })
-  // it('non empty list should return non-zero length', () => {
-  //   let foo = List([1])
-  //   expect(foo.length()).toEqual(1)
-  //   expect(foo.add(2).length()).toEqual(2)
-  // })
-  // it('empty list should return tLength of 1', () => {})
-  // it('popping from a non-empty list should return the list without the last pushed value', () => {})
-  // it('length should return the length', () => {})
-  // it('should show all past values upon inspection', () => {})
-  // it("tLength should return the number of values back to the variable's initalization", () => {})
 })
