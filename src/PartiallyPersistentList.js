@@ -3,7 +3,7 @@ import { persistentNode } from './nodes'
 class PartiallyPersistentList {
   constructor(initialList) {
     this.rootNode = new persistentNode(initialList || [])
-    this.present = this.head = this.rootNode
+    this._present = this._head = this.rootNode
   }
 
   lastNode() {
@@ -18,13 +18,20 @@ class PartiallyPersistentList {
     return this.lastNode().val
   }
 
+  get head() {
+    return this._head.val
+  }
+  set head(val) {
+    this._head = val
+  }
+
   add(addVal) {
     this.lastNode().next = new persistentNode(
       this.lastNode().val.concat([addVal]),
     )
-    if (this.present.equals(this.lastNode())) {
-      this.present = this.lastNode()
-    }
+    // if (this.present.equals(this.lastNode())) {
+    //   this.present = this.lastNode()
+    // }
     this.head = this.lastNode()
     return this
   }
