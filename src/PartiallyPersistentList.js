@@ -6,6 +6,10 @@ class PartiallyPersistentList {
     this._present = this._head = this.rootNode
   }
 
+  static equals(otherList) {
+    return false
+  }
+
   lastNode() {
     let node = this.rootNode
     while (node.next !== null) {
@@ -29,11 +33,18 @@ class PartiallyPersistentList {
     this.lastNode().next = new persistentNode(
       this.lastNode().val.concat([addVal]),
     )
-    // if (this.present.equals(this.lastNode())) {
-    //   this.present = this.lastNode()
-    // }
-    this.head = this.lastNode()
+    if (this._present.equals(this.lastNode())) {
+      this._present = this.lastNode()
+    }
+    this._head = this.lastNode()
     return this
+  }
+
+  get present() {
+    return this._present.val
+  }
+  set present(val) {
+    this._present = val
   }
 
   remove(idx) {
