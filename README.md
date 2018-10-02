@@ -24,10 +24,10 @@ splice
 temporal actions:
 These are read only due to partial persistence restraints
 
-inspect
-prev(indexBack)
-thead
-ttail
+past
+present
+future
+
 
 #### Partially Persistent Map API
 

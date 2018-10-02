@@ -9,4 +9,12 @@ export class persistentNode {
   toString() {
     return this.next === null ? `[${this.val}]` : `[${this.val}] -> `
   }
+
+  equals(node) {
+    return (
+      this.val === node.val &&
+      this.next === node.next &&
+      this.prev === node.prev
+    )
+  }
 }
