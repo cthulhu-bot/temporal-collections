@@ -1,4 +1,4 @@
-export class persistentNode {
+class PersistentNode {
   constructor(val) {
     this.val = val
     this.next = null
@@ -17,4 +17,10 @@ export class persistentNode {
       this.prev === node.prev
     )
   }
+}
+
+const persistentNode = (initialVal) => new PersistentNode(initialVal)
+
+module.exports = {
+  persistentNode,
 }
