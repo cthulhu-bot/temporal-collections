@@ -51,6 +51,7 @@ describe('Partially Persistent List', () => {
 
       foo.present = foo.prev()
       expect(foo.toJS()).toEqual([1,2])
+      expect(foo.prev().toJS()).toEqual([1])
       expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([1] -> (present) [1,2] -> [1,2,3])`)
 
       foo.present = foo.next()

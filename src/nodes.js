@@ -13,8 +13,16 @@ class PersistentNode {
     return this.next === null ? `[${this.val}]` : `[${this.val}] -> `
   }
 
+  toJS() {
+    return this.val
+  }
+
   equals(node) {
     return this.id === node.id
+  }
+
+  inspect() {
+    return `PersistentNode(${this.val})`
   }
 }
 
