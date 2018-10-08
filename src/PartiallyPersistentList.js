@@ -73,6 +73,13 @@ class PartiallyPersistentList {
     return retString
   }
 
+  toString() {
+    return `Temporal.PartiallyPersistentList(${this._timeline()})`
+  }
+  inspect() {
+    return `Temporal.PartiallyPersistentList(${this._timeline()})`
+  }
+
   // Nice to haves
   head() {}
   tail() {}
@@ -86,12 +93,6 @@ class PartiallyPersistentList {
   shift() {}
   unshift() {}
   splice() {}
-  toString() {
-    return `Temporal.PartiallyPersistentList(${this._timeline()})`
-  }
-  inspect() {
-    return `Temporal.PartiallyPersistentList(${this._timeline()})`
-  }
   tInspect() {
     let node = rootNode
     let out = ''

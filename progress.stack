@@ -2,6 +2,7 @@ is there a way to remove the .toJS() call when checking values
 what should length return?
   the length of the last node's value?
   or the length of the temporal collection's timeline?
+  this leads to a larger question of should you be allowed to map over a list's entire timeline or reduce (etc)
 should we switch to an array implementation of the whole thing so you don't have to iterate to find the last node?
 just finish the implementation for add
 just finish the fucking list for add and remove don't do anything fancy, 

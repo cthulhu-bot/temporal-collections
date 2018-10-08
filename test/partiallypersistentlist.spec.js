@@ -48,7 +48,7 @@ describe('Partially Persistent List', () => {
       foo = foo.add(3)
       expect(foo.toJS()).toEqual([1,2,3])
 
-      foo.present = foo.prev();
+      foo.present = foo.prev()
       expect(foo.toJS()).toEqual([1,2])
     })
   })
@@ -60,14 +60,14 @@ describe('Partially Persistent List', () => {
     it('should be able to go back twice on a list that has been operated on twice', () => {})
   })
 
+  describe('next', () => {
+    it('should return undefined on an empty list', () => {})
+  })
+
   describe('past', () => {
     it('should return undefined on an empty list', () => {})
     it('should return undefined on a collection with one commit', () => {})
     it('should return a list with 1 element on a collection with 1 commit and present set to HEAD', () => {})
-  })
-
-  describe('next', () => {
-    it('should return undefined on an empty list', () => {})
   })
 
   describe('future', () => {
@@ -81,19 +81,6 @@ describe('Partially Persistent List', () => {
     it('should remove from a collection with 1 element', () => {})
     it('should remove from a collection with more than 1 element', () => {})
     it('should throw an exception attempting to remove an index that doesnt exist', () => {})
-  })
-
-  describe('calling head on a list', () => {
-    it('should return undefined on an empty list', () => {})
-    it('should return a single value on a list with 1 element', () => {})
-    it('should return a single value on a list with more than 1 element', () => {})
-  })
-
-  describe('calling tail on a list', () => {
-    it('should return undefined on an empty list', () => {})
-    it('should return undefined on a list with 1 element', () => {})
-    it('should return a list with a single value on a list with 2 elements', () => {})
-    it('should return a list from a list with more than 2 elements', () => {})
   })
 
   describe('calling indexOf(x) on a list', () => {
