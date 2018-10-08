@@ -62,12 +62,22 @@ class PartiallyPersistentList {
     return this._present.prev
   }
 
+  next() {
+    return this._present.next
+  }
+
   _timeline() {
     let retString = ''
     let currNode = this.rootNode
     while (!currNode.equals(this.lastNode())) {
+      if (currNode.equals(this._present)) {
+        retString += '(present) '
+      }
       retString += currNode.toString()
       currNode = currNode.next
+    }
+    if (this.lastNode().equals(this._present)) {
+      retString += '(present) '
     }
     retString += this.lastNode().toString()
     return retString

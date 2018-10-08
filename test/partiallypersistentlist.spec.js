@@ -3,7 +3,7 @@ import { List } from '../src/PartiallyPersistentList'
 describe('Partially Persistent List', () => {
   describe('constructor', () => {
     it('with no elements should return empty array', () => {
-      let foo = List([])
+      let foo = List()
       expect(foo.toJS()).toEqual([])
     })
     it('with an element and toJS work', () => {
@@ -12,22 +12,22 @@ describe('Partially Persistent List', () => {
     })
   })
 
-  describe('should add things', () => {
+  describe('add', () => {
     it('to an empty list', () => {
       const foo = List([])
       expect(foo.toJS()).toEqual([])
-      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([])`)
+      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList((present) [])`)
 
       const bar = foo.add(1)
       expect(bar.toJS()).toEqual([1])
-      expect(bar.toString()).toEqual(`Temporal.PartiallyPersistentList([] -> [1])`)
+      expect(bar.toString()).toEqual(`Temporal.PartiallyPersistentList([] -> (present) [1])`)
     })
 
-    it('and be able to chain adds', () => {
+    it('should work and be able to chain adds', () => {
       const foo = List([])
         .add(1)
         .add(2)
-      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([] -> [1] -> [1,2])`)
+      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([] -> [1] -> (present) [1,2])`)
       expect(foo.toJS()).toEqual([1, 2])
     })
   })
@@ -37,19 +37,25 @@ describe('Partially Persistent List', () => {
       const foo = List([])
       expect(foo.toJS()).toEqual([])
     })
-    it('should return HEAD on a collection with one commit', () => {
+    it('should return the last node on a collection with one commit', () => {
       let foo = List([1])
       foo = foo.add(2)
       expect(foo.toJS()).toEqual([1, 2])
     })
-    it('should return the appropriate value when moved backwards through time', () => {
+    it('should return the appropriate value when moving backwards and forwards through time', () => {
       let foo = List([1])
       foo = foo.add(2)
       foo = foo.add(3)
       expect(foo.toJS()).toEqual([1,2,3])
+      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([1] -> [1,2] -> (present) [1,2,3])`)
 
       foo.present = foo.prev()
       expect(foo.toJS()).toEqual([1,2])
+      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([1] -> (present) [1,2] -> [1,2,3])`)
+
+      foo.present = foo.next()
+      expect(foo.toJS()).toEqual([1,2,3])
+      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([1] -> [1,2] -> (present) [1,2,3])`)
     })
   })
 
@@ -58,10 +64,13 @@ describe('Partially Persistent List', () => {
     it('should return undefined on a collection with a single commit', () => {})
     it('should return the previous state of the list when the list has been operated on once', () => {})
     it('should be able to go back twice on a list that has been operated on twice', () => {})
+    it('should return undefined if present is pointing to the root node', () => {})
   })
 
   describe('next', () => {
     it('should return undefined on an empty list', () => {})
+    it('should return undefined if present is pointing to the last node', () => {})
+    it('should return the next node if present is pointing to something other than the last node', () => {})
   })
 
   describe('past', () => {
