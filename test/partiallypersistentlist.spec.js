@@ -32,29 +32,25 @@ describe('Partially Persistent List', () => {
     })
   })
 
-  describe('head', () => {
-    it('should return [] on an empty list', () => {
-      const foo = List([])
-      expect(foo.head).toEqual([])
-    })
-    it('should be equal to head on a collection with one commit', () => {
-      let foo = List([1])
-      foo = foo.add(2)
-      expect(foo.head).toEqual([1, 2])
-    })
-  })
-
   describe('present', () => {
-    it('should return [] on an empty list', () => {
+    it('should return [] after an empty list is constructed', () => {
       const foo = List([])
-      expect(foo.present.val).toEqual([])
+      expect(foo.toJS()).toEqual([])
     })
     it('should return HEAD on a collection with one commit', () => {
       let foo = List([1])
       foo = foo.add(2)
-      expect(foo.present.val).toEqual([1, 2])
+      expect(foo.toJS()).toEqual([1, 2])
     })
-    it('should return the appropriate value when moved backwards through time', () => {})
+    it('should return the appropriate value when moved backwards through time', () => {
+      let foo = List([1])
+      foo = foo.add(2)
+      foo = foo.add(3)
+      expect(foo.toJS()).toEqual([1,2,3])
+
+      foo.present = foo.prev();
+      expect(foo.present.toJS()).toEqual([1,2])
+    })
   })
 
   describe('prev', () => {

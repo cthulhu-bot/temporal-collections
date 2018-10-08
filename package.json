@@ -11,7 +11,8 @@
   "author": "Joshua Stupplebeen (cthulhu-bot)",
   "license": "ISC",
   "dependencies": {
-    "babel-cli": "^6.24.0"
+    "babel-cli": "^6.24.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",

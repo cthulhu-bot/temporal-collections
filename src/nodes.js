@@ -1,9 +1,12 @@
+import uuidv1 from 'uuid/v1'
+
 class PersistentNode {
   constructor(val) {
     this.val = val
     this.next = null
     this.prev = null
     this.length = val.length
+    this.id = uuidv1()
   }
 
   toString() {
@@ -11,11 +14,7 @@ class PersistentNode {
   }
 
   equals(node) {
-    return (
-      this.val === node.val &&
-      this.next === node.next &&
-      this.prev === node.prev
-    )
+    return this.id === node.id
   }
 }
 

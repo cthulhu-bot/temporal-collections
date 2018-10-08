@@ -22,29 +22,25 @@ class PartiallyPersistentList {
     return this.lastNode().val
   }
 
-  get head() {
-    return this._head.val
-  }
-  set head(val) {
-    this._head = val
-  }
-
   add(addVal) {
-    this.lastNode().next = new persistentNode(
+    if (!this._present.equals(this.lastNode())) {
+      throw new Exception('can only add a node to the end of a PartiallyPersistent list, please set "present" to the end of the list before adding')
+    }
+    const oldLastNode = this.lastNode()
+    const newNode = new persistentNode(
       this.lastNode().val.concat([addVal]),
     )
-    if (this._present.equals(this.lastNode())) {
-      this._present = this.lastNode()
-    }
-    this._head = this.lastNode()
+    newNode.prev = oldLastNode
+    oldLastNode.next = newNode
+    this._present = newNode
     return this
   }
 
   get present() {
-    return this._present.val
+    return this._present
   }
-  set present(val) {
-    this._present = val
+  set present(node) {
+    this._present = node
   }
 
   remove(idx) {
@@ -62,7 +58,9 @@ class PartiallyPersistentList {
     return this.lastNode().val.length
   }
 
-  prev(num) {}
+  prev() {
+    return this._present.prev
+  }
 
   // Nice to haves
   head() {}
