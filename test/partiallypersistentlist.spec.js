@@ -49,7 +49,7 @@ describe('Partially Persistent List', () => {
       expect(foo.toJS()).toEqual([1,2,3])
 
       foo.present = foo.prev();
-      expect(foo.present.toJS()).toEqual([1,2])
+      expect(foo.toJS()).toEqual([1,2])
     })
   })
 

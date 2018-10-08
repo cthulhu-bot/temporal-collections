@@ -19,7 +19,7 @@ class PartiallyPersistentList {
   }
 
   toJS() {
-    return this.lastNode().val
+    return this.present.val
   }
 
   add(addVal) {
