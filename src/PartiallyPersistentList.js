@@ -62,6 +62,17 @@ class PartiallyPersistentList {
     return this._present.prev
   }
 
+  _timeline() {
+    let retString = ''
+    let currNode = this.rootNode
+    while (!currNode.equals(this.lastNode())) {
+      retString += currNode.toString()
+      currNode = currNode.next
+    }
+    retString += this.lastNode().toString()
+    return retString
+  }
+
   // Nice to haves
   head() {}
   tail() {}
@@ -76,10 +87,10 @@ class PartiallyPersistentList {
   unshift() {}
   splice() {}
   toString() {
-    return `Temporal.PartiallyPersistentList([${this.lastNode().val}])`
+    return `Temporal.PartiallyPersistentList(${this._timeline()})`
   }
   inspect() {
-    return `Temporal.PartiallyPersistentList([${this.lastNode().val}])`
+    return `Temporal.PartiallyPersistentList(${this._timeline()})`
   }
   tInspect() {
     let node = rootNode

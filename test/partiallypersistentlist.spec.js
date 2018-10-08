@@ -20,14 +20,14 @@ describe('Partially Persistent List', () => {
 
       const bar = foo.add(1)
       expect(bar.toJS()).toEqual([1])
-      expect(bar.toString()).toEqual(`Temporal.PartiallyPersistentList([1])`)
+      expect(bar.toString()).toEqual(`Temporal.PartiallyPersistentList([] -> [1])`)
     })
 
     it('and be able to chain adds', () => {
       const foo = List([])
         .add(1)
         .add(2)
-      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([1,2])`)
+      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([] -> [1] -> [1,2])`)
       expect(foo.toJS()).toEqual([1, 2])
     })
   })
