@@ -5,6 +5,7 @@ what should length return?
   the length of the last node's value?
   or the length of the temporal collection's timeline?
   this leads to a larger question of should you be allowed to map over a list's entire timeline or reduce (etc)
+  i don't see why not this should be possible
 should we switch to an array implementation of the whole thing so you don't have to iterate to find the last node?
 just finish the implementation for add
 just finish the fucking list for add and remove don't do anything fancy, 
@@ -14,4 +15,6 @@ should it be in every test or separate tests?
 por que no los dos?
 working on remove from index
 would 2d array storage make more sense than linkedlist?
+  or 1d array and each array index contains a node
+  this should keep you from having to iterate through the entire linked list
 do shift and unshift still make sense?
