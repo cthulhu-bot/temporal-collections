@@ -1,4 +1,5 @@
 * when moving the 'present' pointer backwards and creating a new branch of time there needs to be an overarching sense of 'wallclock' time that orders the branches as the appeared in the timeline, because when calling 'next' on a present node in which moving forward presets an array of possible 'next' states (a forking node) then you must be able to index them in the order that they were created
+  if you move to 'next' in a forking node then the 'next' node returned should also be an array of nodes
 still need to implement the 'mods' mirrored data structure
 is there a way to remove the .toJS() call when checking values
 what should length return?
