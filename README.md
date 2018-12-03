@@ -1,5 +1,6 @@
 # temporal-collections
 
+The temporal-collections api is a library implementing collections of [persistent data structures](https://en.wikipedia.org/wiki/Persistent_data_structure).
 
 
 ## Persistent Data Structures

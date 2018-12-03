@@ -43,19 +43,20 @@ class PartiallyPersistentList {
     this._present = node
   }
 
+  // should they just use filter?
   remove(idx) {
     if (this.lastNode().val.length === 0) {
       throw 'Attempted to remove from empty list'
     }
 
     const lastVal = this.lastNode().val
-    lastVal.delete(idx)
+    lastVal.delete(idx) // <= FIGURE OUT THIS
     this.lastNode().next = new persistentNode(lastVal)
     return this
   }
 
   length() {
-    return this.lastNode().val.length
+    return this._present.length
   }
 
   prev() {
