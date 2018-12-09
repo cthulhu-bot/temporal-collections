@@ -16,18 +16,24 @@ describe('Partially Persistent List', () => {
     it('to an empty list', () => {
       const foo = List([])
       expect(foo.toJS()).toEqual([])
-      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList((present) [])`)
+      expect(foo.toString()).toEqual(
+        `Temporal.PartiallyPersistentList((present) [])`,
+      )
 
       const bar = foo.add(1)
       expect(bar.toJS()).toEqual([1])
-      expect(bar.toString()).toEqual(`Temporal.PartiallyPersistentList([] -> (present) [1])`)
+      expect(bar.toString()).toEqual(
+        `Temporal.PartiallyPersistentList([] -> (present) [1])`,
+      )
     })
 
     it('should work and be able to chain adds', () => {
       const foo = List([])
         .add(1)
         .add(2)
-      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([] -> [1] -> (present) [1,2])`)
+      expect(foo.toString()).toEqual(
+        `Temporal.PartiallyPersistentList([] -> [1] -> (present) [1,2])`,
+      )
       expect(foo.toJS()).toEqual([1, 2])
     })
   })
@@ -46,17 +52,23 @@ describe('Partially Persistent List', () => {
       let foo = List([1])
       foo = foo.add(2)
       foo = foo.add(3)
-      expect(foo.toJS()).toEqual([1,2,3])
-      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([1] -> [1,2] -> (present) [1,2,3])`)
+      expect(foo.toJS()).toEqual([1, 2, 3])
+      expect(foo.toString()).toEqual(
+        `Temporal.PartiallyPersistentList([1] -> [1,2] -> (present) [1,2,3])`,
+      )
 
       foo.present = foo.prev()
-      expect(foo.toJS()).toEqual([1,2])
+      expect(foo.toJS()).toEqual([1, 2])
       expect(foo.prev().toJS()).toEqual([1])
-      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([1] -> (present) [1,2] -> [1,2,3])`)
+      expect(foo.toString()).toEqual(
+        `Temporal.PartiallyPersistentList([1] -> (present) [1,2] -> [1,2,3])`,
+      )
 
       foo.present = foo.next()
-      expect(foo.toJS()).toEqual([1,2,3])
-      expect(foo.toString()).toEqual(`Temporal.PartiallyPersistentList([1] -> [1,2] -> (present) [1,2,3])`)
+      expect(foo.toJS()).toEqual([1, 2, 3])
+      expect(foo.toString()).toEqual(
+        `Temporal.PartiallyPersistentList([1] -> [1,2] -> (present) [1,2,3])`,
+      )
     })
   })
 
