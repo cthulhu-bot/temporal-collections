@@ -38,6 +38,44 @@ describe('Partially Persistent List', () => {
     })
   })
 
+  describe('remove', () => {
+    it('should throw an exception trying to remove from an empty collection', () => {})
+    it('should remove from a collection with 1 element', () => {})
+    it('should remove from a collection with more than 1 element', () => {})
+    it('should throw an exception attempting to remove an index that doesnt exist', () => {})
+  })
+
+  describe('length', () => {
+    it('should return 0 for an empty array', () => {
+      let list = List([])
+      expect(list.length()).toEqual(0)
+    })
+    it('should increment whenever an element gets added', () => {
+      let list = List([])
+      list.add(1)
+      expect(list.length()).toEqual(1)
+      list.add(2)
+      expect(list.length()).toEqual(2)
+    })
+    it('should reflect the length of the "present" pointer', () => {
+      let list = List([])
+      list.add(1)
+      expect(list.length()).toEqual(1)
+      list.add(2)
+      expect(list.length()).toEqual(2)
+      list.present = list.prev()
+      expect(list.length()).toEqual(1)
+      list.present = list.prev()
+      expect(list.length()).toEqual(0)
+    })
+    it('should decrement whenever an element is removed', () => {
+      let list = List([1,2])
+      expect(list.length()).toEqual(2)
+      // list.remove(0)
+      // expect(list.length()).toEqual(1)
+    })
+  })
+
   describe('present', () => {
     it('should return [] after an empty list is constructed', () => {
       const foo = List([])
@@ -72,9 +110,14 @@ describe('Partially Persistent List', () => {
     })
   })
 
+  // Still need these? are these node tests?
+
   describe('prev', () => {
     it('should return undefined on an empty list', () => {})
-    it('should return undefined on a collection with a single commit', () => {})
+    it('should return undefined on a collection with a single commit', () => {
+      const foo = List([1])
+      expect(foo.prev()).toEqual(null)
+    })
     it('should return the previous state of the list when the list has been operated on once', () => {})
     it('should be able to go back twice on a list that has been operated on twice', () => {})
     it('should return undefined if present is pointing to the root node', () => {})
@@ -98,12 +141,8 @@ describe('Partially Persistent List', () => {
     it('should return one value when present is moved to the prev of HEAD', () => {})
   })
 
-  describe('should remove things', () => {
-    it('should throw an exception trying to remove from an empty collection', () => {})
-    it('should remove from a collection with 1 element', () => {})
-    it('should remove from a collection with more than 1 element', () => {})
-    it('should throw an exception attempting to remove an index that doesnt exist', () => {})
-  })
+
+// Maybe stretch goals
 
   describe('calling indexOf(x) on a list', () => {
     it('should return an empty array if x doesnt exist', () => {})
