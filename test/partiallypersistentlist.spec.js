@@ -1,4 +1,4 @@
-import { List } from '../src/PartiallyPersistentList'
+import { List } from '../src'
 
 describe('Partially Persistent List', () => {
   describe('constructor', () => {
@@ -69,10 +69,8 @@ describe('Partially Persistent List', () => {
       expect(list.length()).toEqual(0)
     })
     it('should decrement whenever an element is removed', () => {
-      let list = List([1,2])
+      let list = List([1, 2])
       expect(list.length()).toEqual(2)
-      // list.remove(0)
-      // expect(list.length()).toEqual(1)
     })
   })
 
@@ -110,6 +108,24 @@ describe('Partially Persistent List', () => {
     })
   })
 
+  describe('mods', () => {
+    it('should track modifications to the List', () => {
+      let foo = List([])
+      foo = foo.add(1)
+      expect(foo.mods).toEqual([`add(1)`])
+      foo = foo.add(2)
+      expect(foo.mods).toEqual([`add(1)`, `add(2)`])
+    })
+  })
+
+  describe('equals', () => {})
+
+  describe('map', () => {})
+
+  describe('filter', () => {})
+
+  describe('reduce', () => {})
+
   // Still need these? are these node tests?
 
   describe('prev', () => {
@@ -141,8 +157,7 @@ describe('Partially Persistent List', () => {
     it('should return one value when present is moved to the prev of HEAD', () => {})
   })
 
-
-// Maybe stretch goals
+  // Maybe stretch goals
 
   describe('calling indexOf(x) on a list', () => {
     it('should return an empty array if x doesnt exist', () => {})

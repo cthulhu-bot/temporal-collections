@@ -1,89 +1,64 @@
-import { persistentNode } from './nodes'
+import { persistentNode } from '../nodes'
 
 class PartiallyPersistentList {
   constructor(initialList) {
     this.rootNode = new persistentNode(initialList || [])
     this._present = this._head = this.rootNode
+    this.mods = []
   }
 
   static equals(otherList) {
     return false
   }
 
-  lastNode() {
-    let node = this.rootNode
-    while (node.next !== null) {
-      node = node.next
-    }
-    return node
-  }
-
-  toJS() {
-    return this.present.val
-  }
-
   add(addVal) {
-    if (!this._present.equals(this.lastNode())) {
-      throw new Exception('can only add a node to the end of a PartiallyPersistent list, please set "present" to the end of the list before adding')
+    if (!this._present.equals(this._lastNode())) {
+      throw new Exception(
+        'can only add a node to the end of a PartiallyPersistent list, please set "present" to the end of the list before adding',
+      )
     }
-    const oldLastNode = this.lastNode()
-    const newNode = new persistentNode(
-      this.lastNode().val.concat([addVal]),
-    )
+    const oldLastNode = this._lastNode()
+    const newNode = new persistentNode(this._lastNode().val.concat([addVal]))
     newNode.prev = oldLastNode
     oldLastNode.next = newNode
     this._present = newNode
+    this.mods.push(`add(${addVal})`)
     return this
   }
 
+  // should they just use filter?
+  remove(idx) {
+    if (this._lastNode().val.length === 0) {
+      throw 'Attempted to remove from empty list'
+    }
+
+    const lastVal = this._lastNode().val
+    lastVal.delete(idx) // <= FIGURE OUT THIS
+    this._lastNode().next = new persistentNode(lastVal)
+    return this
+  }
+
+  // Temporal Methods involving the 'present' pointer within the list of nodes
   get present() {
     return this._present
   }
   set present(node) {
     this._present = node
   }
-
-  // should they just use filter?
-  remove(idx) {
-    if (this.lastNode().val.length === 0) {
-      throw 'Attempted to remove from empty list'
-    }
-
-    const lastVal = this.lastNode().val
-    lastVal.delete(idx) // <= FIGURE OUT THIS
-    this.lastNode().next = new persistentNode(lastVal)
-    return this
-  }
-
   length() {
     return this._present.length
   }
-
   prev() {
     return this._present.prev
   }
-
   next() {
     return this._present.next
   }
 
-  _timeline() {
-    let retString = ''
-    let currNode = this.rootNode
-    while (!currNode.equals(this.lastNode())) {
-      if (currNode.equals(this._present)) {
-        retString += '(present) '
-      }
-      retString += currNode.toString()
-      currNode = currNode.next
-    }
-    if (this.lastNode().equals(this._present)) {
-      retString += '(present) '
-    }
-    retString += this.lastNode().toString()
-    return retString
+  // Inspection Methods
+  toJS() {
+    return this.present.val
   }
-
   toString() {
     return `Temporal.PartiallyPersistentList(${this._timeline()})`
   }
@@ -91,13 +66,42 @@ class PartiallyPersistentList {
     return `Temporal.PartiallyPersistentList(${this._timeline()})`
   }
 
+  // Implementation of standard array methods
+  map(f) {}
+  filter(f) {}
+  reduce(f, init) {}
+
+  // Private Methods
+  _timeline() {
+    let retString = ''
+    let currNode = this.rootNode
+    while (!currNode.equals(this._lastNode())) {
+      if (currNode.equals(this._present)) {
+        retString += '(present) '
+      }
+      retString += currNode.toString()
+      currNode = currNode.next
+    }
+    if (this._lastNode().equals(this._present)) {
+      retString += '(present) '
+    }
+    retString += this._lastNode().toString()
+    return retString
+  }
+
+  // fucking fix this, walking the entire linked list to find the last node is O(n)
+  _lastNode() {
+    let node = this.rootNode
+    while (node.next !== null) {
+      node = node.next
+    }
+    return node
+  }
+
   // Nice to haves
   head() {}
   tail() {}
   indexOf(x) {}
-  map(f) {}
-  filter(f) {}
-  reduce(f, init) {}
 
   // stretch goals
   slice() {}

@@ -1,4 +1,4 @@
-import { persistentNode } from './nodes'
+import { persistentNode } from '../nodes'
 
 export class FullyPersistentList {
   constructor(initialList) {
