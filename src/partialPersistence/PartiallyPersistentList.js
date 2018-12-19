@@ -7,10 +7,6 @@ class PartiallyPersistentList {
     this.mods = []
   }
 
-  static equals(otherList) {
-    return false
-  }
-
   add(addVal) {
     if (!this._present.equals(this._lastNode())) {
       throw new Exception(
@@ -36,6 +32,23 @@ class PartiallyPersistentList {
     lastVal.delete(idx) // <= FIGURE OUT THIS
     this._lastNode().next = new persistentNode(lastVal)
     return this
+  }
+
+  equals(otherList) {
+    let currNode = this.rootNode
+    let otherNode = otherList.rootNode
+
+    while (Boolean(currNode)) {
+      if (currNode.val !== otherNode.val) {
+        return false
+      }
+      currNode = currNode.next
+      otherNode = otherNode.next
+    }
+    if (currNode === otherNode) {
+      return true
+    }
+    return false
   }
 
   // Temporal Methods involving the 'present' pointer within the list of nodes
@@ -90,6 +103,7 @@ class PartiallyPersistentList {
   }
 
   // fucking fix this, walking the entire linked list to find the last node is O(n)
+  // just keep a fucking pointer to the last node
   _lastNode() {
     let node = this.rootNode
     while (node.next !== null) {
