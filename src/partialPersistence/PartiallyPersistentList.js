@@ -60,7 +60,7 @@ class PartiallyPersistentList {
   }
 
   map(f) {
-    const nextVal = this.lastVal.map(f.bind(this))
+    const nextVal = this.lastVal.map(f)
     const oldLastNode = this._lastNode()
     const newNode = new persistentNode(nextVal)
 
@@ -73,7 +73,7 @@ class PartiallyPersistentList {
   }
 
   filter(f) {
-    const nextVal = this.lastVal.filter(f.bind(this))
+    const nextVal = this.lastVal.filter(f)
     const oldLastNode = this._lastNode()
     const newNode = new persistentNode(nextVal)
 
@@ -86,7 +86,7 @@ class PartiallyPersistentList {
   }
 
   reduce(f, init) {
-    return this.lastVal.reduce(f.bind(this), init)
+    return this.lastVal.reduce(f, init)
   }
 
   // Temporal Methods involving the 'present' pointer within the list of nodes
