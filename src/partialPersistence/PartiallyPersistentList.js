@@ -7,6 +7,7 @@ class PartiallyPersistentList {
     this.mods = []
     this.index = 0
     this.lastVal = this._lastNode().val
+    this.val = this._lastNode().val
   }
 
   add(addVal) {
@@ -36,12 +37,14 @@ class PartiallyPersistentList {
     return this
   }
 
+  // last node value's equality test
   equals(otherList) {
     let thisVal = this._lastNode().val
     let otherVal = otherList._lastNode().val
     return JSON.stringify(thisVal) === JSON.stringify(otherVal)
   }
 
+  // temporal equality test, i.e. whether one list's timeline is equivalent to another's
   tequals(otherList) {
     let currNode = this.rootNode
     let otherNode = otherList.rootNode
@@ -59,35 +62,24 @@ class PartiallyPersistentList {
     return false
   }
 
+  // Sequence algorithms
   map(f) {
     const nextVal = this.lastVal.map(f)
-    const oldLastNode = this._lastNode()
-    const newNode = new persistentNode(nextVal)
-
-    newNode.prev = oldLastNode
-    oldLastNode.next = newNode
-    this._present = newNode
-    this.mods.push(`map(${f})`)
-
+    this._appendNode(nextVal, `map(${f})`)
     return this
   }
 
   filter(f) {
     const nextVal = this.lastVal.filter(f)
-    const oldLastNode = this._lastNode()
-    const newNode = new persistentNode(nextVal)
-
-    newNode.prev = oldLastNode
-    oldLastNode.next = newNode
-    this._present = newNode
-    this.mods.push(`filter(${f})`)
-
+    this._appendNode(nextVal, `filter(${f})`)
     return this
   }
 
   reduce(f, init) {
     return this.lastVal.reduce(f, init)
   }
+
+  concat(value) {}
 
   // Temporal Methods involving the 'present' pointer within the list of nodes
   get present() {
@@ -133,6 +125,16 @@ class PartiallyPersistentList {
     }
     retString += this._lastNode().toString()
     return retString
+  }
+
+  _appendNode(newValue, modValue) {
+    const oldLastNode = this._lastNode()
+    const newNode = new persistentNode(newValue)
+
+    newNode.prev = oldLastNode
+    oldLastNode.next = newNode
+    this._present = newNode
+    this.mods.push(modValue)
   }
 
   // itertor implementation

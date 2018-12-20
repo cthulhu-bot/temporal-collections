@@ -1,20 +1,30 @@
-instead of remove should they be forced to rely on filter?
+Working on:
+* test to make sure prev() returns undefined when present is pointing at the root node
+* see if we can clean up the mod text when adding the functions run by map and filter
+* test out the mods during filter and map
+* switch 'present' to 'HEAD'
+* why does changing the node prev and next initialization to undefined from null break stuff?
+* start working on 'concat'
 * when moving the 'present' pointer backwards and creating a new branch of time there needs to be an overarching sense of 'wallclock' time that orders the branches as the appeared in the timeline, because when calling 'next' on a present node in which moving forward presets an array of possible 'next' states (a forking node) then you must be able to index them in the order that they were created
   if you move to 'next' in a forking node then the 'next' node returned should also be an array of nodes
   but if you move to 'next' from there and those nodes then fork then what, it becomes a nested array of nodes
   that's fine but then what happens when you try to map over these nested data structures?
-is there a way to remove the .toJS() call when checking values
+* is there a way to remove the .toJS() call when checking values
+
+
+Will possibly get worked on:
+
+instead of remove should they be forced to rely on filter?
+  immutable implements an array remove(index)
 what should length return?
   the length of the last node's value?
   or the length of the temporal collection's timeline?
   this leads to a larger question of should you be allowed to map over a list's entire timeline or reduce (etc)
+  tmap, tfilter, treduce
   i don't see why not this should be possible
 should we switch to an array implementation of the whole thing so you don't have to iterate to find the last node?
 just finish the fucking list for add and remove don't do anything fancy, 
 there're still like 6 more implementations of List to build
-how should we be testing the inherent additive node behavior?
-should it be in every test or separate tests?
-por que no los dos?
 working on remove from index (is this the correct thing to do?)
 would 2d array storage make more sense than linkedlist?
   or 1d array and each array index contains a node

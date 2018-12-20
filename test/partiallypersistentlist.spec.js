@@ -77,7 +77,7 @@ describe('Partially Persistent List', () => {
   describe('present', () => {
     it('should return [] after an empty list is constructed', () => {
       const foo = List([])
-      expect(foo.toJS()).toEqual([])
+      expect(foo.present.toJS()).toEqual([])
     })
     it('should return the last node on a collection with one commit', () => {
       let foo = List([1])
@@ -106,6 +106,7 @@ describe('Partially Persistent List', () => {
         `Temporal.PartiallyPersistentList([1] -> [1,2] -> (present) [1,2,3])`,
       )
     })
+    it('should return undefined if present is pointing to the root node', () => {})
   })
 
   describe('mods', () => {
@@ -233,15 +234,19 @@ describe('Partially Persistent List', () => {
   })
 
   // Maybe stretch goals
-
   describe('calling indexOf(x) on a list', () => {
     it('should return an empty array if x doesnt exist', () => {})
     it('should return an array with 1 element if x exists once', () => {})
     it('should return an array with 2 elments if x exists twice', () => {})
   })
+  describe('calling find(x) on a list', () => {})
+  describe('keyOf', () => {})
+  describe('max', () => {})
+  describe('min', () => {})
+  describe('slice', () => {})
 
-  describe('calling map on a list', () => {
-    it('should apply the function and return a new list', () => {})
-    it('should also append a new node', () => {})
-  })
+  // these will matter more with Maps
+  describe('keys', () => {})
+  describe('values', () => {})
+  describe('entries', () => {})
 })
