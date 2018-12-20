@@ -178,16 +178,28 @@ describe('Partially Persistent List', () => {
   })
 
   describe('map', () => {
-    it('should work on a single list', () => {
+    it('should replicate mapping behavior on an array for the last value', () => {
       let foo = List([1, 2, 3])
       foo = foo.map((x) => ++x)
-      // expect(foo.toJS()).toEqual([2, 3, 4])
+      expect(foo.toJS()).toEqual([2, 3, 4])
     })
   })
 
-  describe('filter', () => {})
+  describe('filter', () => {
+    it('should replicate filtering behavior on an array for the last value', () => {
+      let foo = List([1, 2, 3])
+      foo = foo.filter((x) => x > 2)
+      expect(foo.toJS()).toEqual([3])
+    })
+  })
 
-  describe('reduce', () => {})
+  describe('reduce', () => {
+    it('should replicate reducing behavior on an array for the last value', () => {
+      let foo = List([1, 2, 3])
+      const bar = foo.reduce((acc, x) => acc + x, 0)
+      expect(bar).toEqual(6)
+    })
+  })
 
   // Still need these? are these node tests?
 
