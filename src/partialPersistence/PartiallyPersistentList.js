@@ -35,11 +35,17 @@ class PartiallyPersistentList {
   }
 
   equals(otherList) {
+    let thisVal = this._lastNode().val
+    let otherVal = otherList._lastNode().val
+    return JSON.stringify(thisVal) === JSON.stringify(otherVal)
+  }
+
+  tequals(otherList) {
     let currNode = this.rootNode
     let otherNode = otherList.rootNode
 
     while (Boolean(currNode)) {
-      if (currNode.val !== otherNode.val) {
+      if (JSON.stringify(currNode.val) !== JSON.stringify(otherNode.val)) {
         return false
       }
       currNode = currNode.next

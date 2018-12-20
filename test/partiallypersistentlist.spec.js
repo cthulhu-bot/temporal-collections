@@ -136,21 +136,49 @@ describe('Partially Persistent List', () => {
       bar = bar.add(2)
       expect(foo.equals(bar)).toBe(false)
     })
-    it('should work whether the list was created via instantiation or methods', () => {
+    it('should work if the list was created via instantiation or methods', () => {
       let foo = List([])
       let bar = List([1, 2])
       foo = foo.add(1)
       foo = foo.add(2)
       expect(foo.equals(bar)).toBe(true)
-      foo.add(3)
-      expect(foo.equals(bar)).toBe(false)
     })
     it('should work with nested lists', () => {
-      let foo = List([])
+      let foo = List([[1]])
       let bar = List([[1]])
-      let baz = List([1])
-      foo = foo.add(baz)
       expect(foo.equals(bar)).toBe(true)
+    })
+  })
+
+  describe('tequals', () => {
+    it('should work with initialization', () => {
+      let foo = List([])
+      let bar = List([])
+      expect(foo.tequals(bar)).toBe(true)
+      foo = List([1])
+      bar = List([2])
+      expect(foo.tequals(bar)).toBe(false)
+    })
+    it('should work if elements have been added via list methods', () => {
+      let foo = List([])
+      let bar = List([])
+      foo = foo.add(1)
+      bar = bar.add(1)
+      expect(foo.equals(bar)).toBe(true)
+      bar = bar.add(2)
+      expect(foo.tequals(bar)).toBe(false)
+    })
+    it('should fail if the list was created via instantiation as opposed to methods', () => {
+      let foo = List([])
+      let bar = List([1, 2])
+      foo = foo.add(1)
+      foo = foo.add(2)
+      expect(foo.tequals(bar)).toBe(false)
+    })
+    it('should work with nested lists', () => {
+      let foo = List([[1]])
+      let bar = List([[1]])
+      expect(foo.tequals(bar)).toBe(true)
     })
   })
 
