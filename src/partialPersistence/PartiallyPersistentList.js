@@ -5,6 +5,8 @@ class PartiallyPersistentList {
     this.rootNode = new persistentNode(initialList || [])
     this._present = this._head = this.rootNode
     this.mods = []
+    this.index = 0
+    this.lastVal = this._lastNode().val
   }
 
   add(addVal) {
@@ -55,6 +57,20 @@ class PartiallyPersistentList {
       return true
     }
     return false
+  }
+
+  map(f) {
+    console.log('wtffffffffff')
+    const nextVal = this._lastNode().val.map(f.bind(this))
+    const oldLastNode = this._lastNode()
+    const newNode = new persistentNode(nextVal)
+
+    newNode.prev = oldLastNode
+    oldLastNode.next = newNode
+    this._present = newNode
+    this.mods.push(`map(${f})`)
+
+    return this
   }
 
   // Temporal Methods involving the 'present' pointer within the list of nodes
@@ -108,6 +124,20 @@ class PartiallyPersistentList {
     return retString
   }
 
+  // itertor implementation
+  [Symbol.iterator]() {
+    return {
+      next: () => {
+        if (this.index < this._lastNode().val.length) {
+          return { value: this.lastVal[this.index++], done: false }
+        } else {
+          this.index = 0
+          return { done: true }
+        }
+      },
+    }
+  }
+
   // fucking fix this, walking the entire linked list to find the last node is O(n)
   // just keep a fucking pointer to the last node
   _lastNode() {
@@ -152,6 +182,7 @@ class PartiallyPersistentList {
 }
 
 const List = (initialList) => new PartiallyPersistentList(initialList)
+
 module.exports = {
   List,
 }

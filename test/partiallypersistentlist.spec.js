@@ -164,7 +164,7 @@ describe('Partially Persistent List', () => {
       let bar = List([])
       foo = foo.add(1)
       bar = bar.add(1)
-      expect(foo.equals(bar)).toBe(true)
+      expect(foo.tequals(bar)).toBe(true)
       bar = bar.add(2)
       expect(foo.tequals(bar)).toBe(false)
     })
@@ -175,14 +175,15 @@ describe('Partially Persistent List', () => {
       foo = foo.add(2)
       expect(foo.tequals(bar)).toBe(false)
     })
-    it('should work with nested lists', () => {
-      let foo = List([[1]])
-      let bar = List([[1]])
-      expect(foo.tequals(bar)).toBe(true)
-    })
   })
 
-  describe('map', () => {})
+  describe('map', () => {
+    it('should work on a single list', () => {
+      let foo = List([1, 2, 3])
+      foo = foo.map((x) => ++x)
+      // expect(foo.toJS()).toEqual([2, 3, 4])
+    })
+  })
 
   describe('filter', () => {})
 
