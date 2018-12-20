@@ -74,6 +74,17 @@ describe('Partially Persistent List', () => {
     })
   })
 
+  describe('prev', () => {
+    it('should return undefined on an empty list', () => {})
+    it('should return undefined on a collection with a single commit', () => {
+      const foo = List([1])
+      expect(foo.prev()).toEqual(null)
+    })
+    it('should return the previous state of the list when the list has been operated on once', () => {})
+    it('should be able to go back twice on a list that has been operated on twice', () => {})
+    it('should return undefined if present is pointing to the root node', () => {})
+  })
+
   describe('present', () => {
     it('should return [] after an empty list is constructed', () => {
       const foo = List([])
@@ -204,17 +215,6 @@ describe('Partially Persistent List', () => {
 
   // Still need these? are these node tests?
 
-  describe('prev', () => {
-    it('should return undefined on an empty list', () => {})
-    it('should return undefined on a collection with a single commit', () => {
-      const foo = List([1])
-      expect(foo.prev()).toEqual(null)
-    })
-    it('should return the previous state of the list when the list has been operated on once', () => {})
-    it('should be able to go back twice on a list that has been operated on twice', () => {})
-    it('should return undefined if present is pointing to the root node', () => {})
-  })
-
   describe('next', () => {
     it('should return undefined on an empty list', () => {})
     it('should return undefined if present is pointing to the last node', () => {})
@@ -234,12 +234,12 @@ describe('Partially Persistent List', () => {
   })
 
   // Maybe stretch goals
-  describe('calling indexOf(x) on a list', () => {
+  describe('indexOf(x)', () => {
     it('should return an empty array if x doesnt exist', () => {})
     it('should return an array with 1 element if x exists once', () => {})
     it('should return an array with 2 elments if x exists twice', () => {})
   })
-  describe('calling find(x) on a list', () => {})
+  describe('find(x)', () => {})
   describe('keyOf', () => {})
   describe('max', () => {})
   describe('min', () => {})
