@@ -60,7 +60,6 @@ class PartiallyPersistentList {
   }
 
   map(f) {
-    console.log('wtffffffffff')
     const nextVal = this._lastNode().val.map(f.bind(this))
     const oldLastNode = this._lastNode()
     const newNode = new persistentNode(nextVal)
@@ -128,7 +127,7 @@ class PartiallyPersistentList {
   [Symbol.iterator]() {
     return {
       next: () => {
-        if (this.index < this._lastNode().val.length) {
+        if (this.index < this.lastVal.length) {
           return { value: this.lastVal[this.index++], done: false }
         } else {
           this.index = 0
