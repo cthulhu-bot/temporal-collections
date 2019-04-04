@@ -1,6 +1,13 @@
 import { List } from '../src'
 
 describe('Partially Persistent List', () => {
+  describe('identity test', () => {
+    it('should know its own identity', () => {
+      let foo = List()
+      expect(foo.isPartiallyPersistentList).toEqual(true)
+    })
+  })
+
   describe('constructor', () => {
     it('with no elements should return empty array', () => {
       let foo = List()
@@ -211,6 +218,38 @@ describe('Partially Persistent List', () => {
       const bar = foo.reduce((acc, x) => acc + x, 0)
       expect(bar).toEqual(6)
     })
+  })
+
+  // Array methods
+  describe('concat', () => {
+    it('should work for other lists', () => {
+      const foo = List([1, 2])
+      const bar = List([3, 4])
+      expect(foo.concat(bar).toJS()).toEqual([1, 2, 3, 4])
+    })
+    it('should work for arrays', () => {
+      const foo = List([1, 2])
+      const bar = [3, 4]
+      expect(foo.concat(bar).toJS()).toEqual([1, 2, 3, 4])
+    })
+  })
+
+  describe('slice', () => {
+  })
+
+  describe('splice', () => {
+  })
+
+  describe('shift', () => {
+  })
+
+  describe('unshift', () => {
+  })
+
+  describe('forEach', () => {
+  })
+
+  describe('for of', () => {
   })
 
   // Still need these? are these node tests?

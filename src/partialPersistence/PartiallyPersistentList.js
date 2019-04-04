@@ -8,6 +8,7 @@ class PartiallyPersistentList {
     this.index = 0
     this.lastVal = this._lastNode().val
     this.val = this._lastNode().val
+    this.isPartiallyPersistentList = true
   }
 
   add(addVal) {
@@ -79,7 +80,21 @@ class PartiallyPersistentList {
     return this.lastVal.reduce(f, init)
   }
 
-  concat(value) {}
+  concat(value) {
+    if (!value.isPartiallyPersistentList || !Array.isArray(value)) {
+      console.log('is: ', value.isPartiallyPersistentList)
+      console.log('array: ', Array.isArray(value))
+      throw 'Only able to concat a PartiallyPersistentList to another PartiallyPersistentList or an Array'
+    }
+    let nextVal = this.lastVal
+    if (value.isPartiallyPersistentList) {
+      nextVal = this.lastVal.concat(value.toJS())
+    }
+    else if (Array.isArray(value)) {
+      nextVal = this.lastVal.concat(value)
+    }
+    return nextVal
+  }
 
   // Temporal Methods involving the 'present' pointer within the list of nodes
   get present() {
