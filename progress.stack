@@ -1,4 +1,5 @@
 Working on:
+* skeletonized concat tests
 * test to make sure prev() returns undefined when present is pointing at the root node
 * see if we can clean up the mod text when adding the functions run by map and filter
 * test out the mods during filter and map
