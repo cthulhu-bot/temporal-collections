@@ -1,4 +1,6 @@
 Working on:
+* tried to refactor List to be the default export and everything fell over
+* working on isPartiallyPersistentList as a seperate module.export
 * skeletonized concat tests
 * test to make sure prev() returns undefined when present is pointing at the root node
 * see if we can clean up the mod text when adding the functions run by map and filter

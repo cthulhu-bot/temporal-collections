@@ -1,10 +1,10 @@
-import { List } from '../src'
+import List, { isPartiallyPersistentList } from '../src'
 
 describe('Partially Persistent List', () => {
   describe('identity test', () => {
     it('should know its own identity', () => {
       let foo = List()
-      expect(foo.isPartiallyPersistentList).toEqual(true)
+      expect(foo._isPartiallyPersistentList).toEqual(true)
     })
   })
 
@@ -232,6 +232,16 @@ describe('Partially Persistent List', () => {
       const bar = [3, 4]
       expect(foo.concat(bar).toJS()).toEqual([1, 2, 3, 4])
     })
+    xit('should not work for objects', () => {
+      const foo = List([1, 2])
+      const bar = {a: 'a'}
+      expect(foo.concat(bar)).toThrow('Only able to concat a PartiallyPersistentList to another PartiallyPersistentList or an Array')
+    })
+    xit('should not work for strings', () => {
+      const foo = List([1, 2])
+      const bar = 'a'
+      expect(foo.concat(bar)).toThrow('Only able to concat a PartiallyPersistentList to another PartiallyPersistentList or an Array')
+    })
   })
 
   describe('slice', () => {
@@ -250,6 +260,14 @@ describe('Partially Persistent List', () => {
   })
 
   describe('for of', () => {
+  })
+
+  // identity tests
+  describe('isPartiallyPersistentList', () => {
+    it('should return true for Lists', () => {
+      const foo = List([1, 2])
+      expect(foo.isPartiallyPersistentList()).toBe(true)
+    })
   })
 
   // Still need these? are these node tests?
