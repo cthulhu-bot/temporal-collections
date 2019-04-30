@@ -1,5 +1,3 @@
-import { List } from './partialPersistence/PartiallyPersistentList'
+import List, { isPartiallyPersistentList } from './partialPersistence/PartiallyPersistentList'
 
-module.exports = {
-  List,
-}
+export { List as default, isPartiallyPersistentList }

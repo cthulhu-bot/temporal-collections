@@ -1,6 +1,6 @@
 import { persistentNode } from '../nodes'
 
-export default class PartiallyPersistentList {
+class PartiallyPersistentList {
   constructor(initialList) {
     this.rootNode = new persistentNode(initialList || [])
     this._present = this._head = this.rootNode
@@ -81,15 +81,11 @@ export default class PartiallyPersistentList {
   }
 
   concat(value) {
-    console.log('value: ', value)
-    console.log('isPartiallyPersistentList: ', value.isPartiallyPersistentList())
     if (isPartiallyPersistentList(value) || !Array.isArray(value)) {
-      console.log('is: ', value.isPartiallyPersistentList())
-      console.log('array: ', Array.isArray(value))
       throw 'Only able to concat a PartiallyPersistentList to another PartiallyPersistentList or an Array'
     }
     let nextVal = this.lastVal
-    if (value.isPartiallyPersistentList()) {
+    if (isPartiallyPersistentList(value)) {
       nextVal = this.lastVal.concat(value.toJS())
     }
     else if (Array.isArray(value)) {
@@ -212,12 +208,9 @@ export default class PartiallyPersistentList {
 }
 
 // identity methods
-function isPartiallyPersistentList(value) {
+export function isPartiallyPersistentList(value) {
   return value._isPartiallyPersistentList || false
 }
 
-const List = (initialList) => new PartiallyPersistentList(initialList)
+export default (initialList) => new PartiallyPersistentList(initialList)
 
-module.exports = {
-  isPartiallyPersistentList,
-}

@@ -4,7 +4,7 @@ describe('Partially Persistent List', () => {
   describe('identity test', () => {
     it('should know its own identity', () => {
       let foo = List()
-      expect(foo._isPartiallyPersistentList).toEqual(true)
+      expect(isPartiallyPersistentList(foo)).toEqual(true)
     })
   })
 
@@ -266,7 +266,7 @@ describe('Partially Persistent List', () => {
   describe('isPartiallyPersistentList', () => {
     it('should return true for Lists', () => {
       const foo = List([1, 2])
-      expect(foo.isPartiallyPersistentList()).toBe(true)
+      expect(isPartiallyPersistentList(foo)).toBe(true)
     })
   })
 
