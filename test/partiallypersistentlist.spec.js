@@ -232,16 +232,6 @@ describe('Partially Persistent List', () => {
       const bar = [3, 4]
       expect(foo.concat(bar).toJS()).toEqual([1, 2, 3, 4])
     })
-    xit('should not work for objects', () => {
-      const foo = List([1, 2])
-      const bar = {a: 'a'}
-      expect(foo.concat(bar)).toThrow('Only able to concat a PartiallyPersistentList to another PartiallyPersistentList or an Array')
-    })
-    xit('should not work for strings', () => {
-      const foo = List([1, 2])
-      const bar = 'a'
-      expect(foo.concat(bar)).toThrow('Only able to concat a PartiallyPersistentList to another PartiallyPersistentList or an Array')
-    })
   })
 
   describe('slice', () => {

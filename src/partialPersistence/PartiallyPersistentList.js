@@ -81,7 +81,7 @@ class PartiallyPersistentList {
   }
 
   concat(value) {
-    if (isPartiallyPersistentList(value) || !Array.isArray(value)) {
+    if (!isPartiallyPersistentList(value) && !Array.isArray(value)) {
       throw 'Only able to concat a PartiallyPersistentList to another PartiallyPersistentList or an Array'
     }
     let nextVal = this.lastVal
@@ -91,7 +91,8 @@ class PartiallyPersistentList {
     else if (Array.isArray(value)) {
       nextVal = this.lastVal.concat(value)
     }
-    return nextVal
+    this._appendNode(nextVal, `concat(${value})`)
+    return this
   }
 
   // Temporal Methods involving the 'present' pointer within the list of nodes
