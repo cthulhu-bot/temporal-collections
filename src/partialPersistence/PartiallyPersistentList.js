@@ -17,13 +17,7 @@ class PartiallyPersistentList {
         'can only add a node to the end of a PartiallyPersistent list, please set "present" to the end of the list before adding',
       )
     }
-    const oldLastNode = this._lastNode()
-    const newNode = new persistentNode(this._lastNode().val.concat([addVal]))
-    newNode.prev = oldLastNode
-    oldLastNode.next = newNode
-    this._present = newNode
-    this.mods.push(`add(${addVal})`)
-    return this
+    return this._appendNode(addVal, `add(${addVal})`)
   }
 
   // should they just use filter?
@@ -87,8 +81,7 @@ class PartiallyPersistentList {
     let nextVal = this.lastVal
     if (isPartiallyPersistentList(value)) {
       nextVal = this.lastVal.concat(value.toJS())
-    }
-    else if (Array.isArray(value)) {
+    } else if (Array.isArray(value)) {
       nextVal = this.lastVal.concat(value)
     }
     this._appendNode(nextVal, `concat(${value})`)
@@ -114,7 +107,7 @@ class PartiallyPersistentList {
 
   // Inspection Methods
   toJS() {
-    return this.present.val
+    return this._present.val
   }
   toString() {
     return `Temporal.PartiallyPersistentList(${this._timeline()})`
@@ -141,7 +134,7 @@ class PartiallyPersistentList {
     return retString
   }
 
-  _appendNode(newValue, modValue) {
+  _appendNodex(newValue, modValue) {
     const oldLastNode = this._lastNode()
     const newNode = new persistentNode(newValue)
 
@@ -149,6 +142,18 @@ class PartiallyPersistentList {
     oldLastNode.next = newNode
     this._present = newNode
     this.mods.push(modValue)
+  }
+
+  _appendNode(newValue, modValue) {
+    const oldLastNode = this._lastNode()
+    const newNode = new persistentNode(this._lastNode().val.concat([newValue]))
+
+    newNode.prev = oldLastNode
+    oldLastNode.next = newNode
+    this._present = newNode
+    this.mods.push(modValue)
+
+    return this
   }
 
   // itertor implementation
@@ -214,4 +219,3 @@ export function isPartiallyPersistentList(value) {
 }
 
 export default (initialList) => new PartiallyPersistentList(initialList)
-

@@ -82,13 +82,26 @@ describe('Partially Persistent List', () => {
   })
 
   describe('prev', () => {
-    it('should return undefined on an empty list', () => {})
-    it('should return undefined on a collection with a single commit', () => {
+    it('should return undefined on an empty list', () => {
+      const foo = List([])
+      expect(foo.prev()).toEqual(null)
+    })
+    it('should return undefined on a collection with a single element', () => {
       const foo = List([1])
       expect(foo.prev()).toEqual(null)
     })
-    it('should return the previous state of the list when the list has been operated on once', () => {})
-    it('should be able to go back twice on a list that has been operated on twice', () => {})
+    it('should return the previous state of the list when the list has been operated on once', () => {
+      const foo = List([1])
+      const bar = foo.add(2)
+      expect(foo.prev().val).toEqual([1])
+    })
+    it('should be able to go back twice on a list that has been operated on twice', () => {
+      const foo = List([1])
+      const bar = foo.add(2)
+      const baz = bar.add(3)
+      //console.log(baz.prev())
+      //expect(baz.prev().prev().val).toEqual([1])
+    })
     it('should return undefined if present is pointing to the root node', () => {})
   })
 
@@ -234,23 +247,17 @@ describe('Partially Persistent List', () => {
     })
   })
 
-  describe('slice', () => {
-  })
+  describe('slice', () => {})
 
-  describe('splice', () => {
-  })
+  describe('splice', () => {})
 
-  describe('shift', () => {
-  })
+  describe('shift', () => {})
 
-  describe('unshift', () => {
-  })
+  describe('unshift', () => {})
 
-  describe('forEach', () => {
-  })
+  describe('forEach', () => {})
 
-  describe('for of', () => {
-  })
+  describe('for of', () => {})
 
   // identity tests
   describe('isPartiallyPersistentList', () => {
