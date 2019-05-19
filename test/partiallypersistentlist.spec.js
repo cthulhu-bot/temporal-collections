@@ -83,24 +83,32 @@ describe('Partially Persistent List', () => {
 
   describe('prev', () => {
     it('should return undefined on an empty list', () => {
-      const foo = List([])
-      expect(foo.prev()).toEqual(null)
+      let foo = List([])
+      foo = foo.prev()
+      expect(foo.present.val).toEqual(null)
     })
     it('should return undefined on a collection with a single element', () => {
-      const foo = List([1])
-      expect(foo.prev()).toEqual(null)
+      let foo = List([1])
+      foo = foo.prev()
+      expect(foo.present.val).toEqual(null)
     })
     it('should return the previous state of the list when the list has been operated on once', () => {
       const foo = List([1])
-      const bar = foo.add(2)
-      expect(foo.prev().val).toEqual([1])
+      let bar = foo.add(2)
+      bar = bar.prev()
+      expect(bar.present.val).toEqual([1])
     })
     it('should be able to go back twice on a list that has been operated on twice', () => {
       const foo = List([1])
       const bar = foo.add(2)
       const baz = bar.add(3)
-      //console.log(baz.prev())
-      //expect(baz.prev().prev().val).toEqual([1])
+      expect(baz.prev().toJS()).toEqual([1, 2])
+      expect(
+        baz
+          .prev()
+          .prev()
+          .toJS(),
+      ).toEqual([1])
     })
     it('should return undefined if present is pointing to the root node', () => {})
   })

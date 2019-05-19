@@ -3,12 +3,13 @@ import { persistentNode } from '../nodes'
 class PartiallyPersistentList {
   constructor(initialList) {
     this.rootNode = new persistentNode(initialList || [])
-    this._present = this._head = this.rootNode
+    this._present = this.rootNode
     this.mods = []
     this.index = 0
     this.lastVal = this._lastNode().val
-    this.val = this._lastNode().val
+    this.val = this._present.val
     this._isPartiallyPersistentList = true
+    this.timetraveling = false
   }
 
   add(addVal) {
@@ -78,13 +79,11 @@ class PartiallyPersistentList {
     if (!isPartiallyPersistentList(value) && !Array.isArray(value)) {
       throw 'Only able to concat a PartiallyPersistentList to another PartiallyPersistentList or an Array'
     }
-    let nextVal = this.lastVal
-    if (isPartiallyPersistentList(value)) {
-      nextVal = this.lastVal.concat(value.toJS())
-    } else if (Array.isArray(value)) {
-      nextVal = this.lastVal.concat(value)
-    }
-    this._appendNode(nextVal, `concat(${value})`)
+
+    // console.log('lastVal: ', this.lastVal)
+    this._appendNode(value, `concat(${value})`)
+    // console.log('lastVal: ', this.lastVal)
+    // console.log(this)
     return this
   }
 
@@ -99,10 +98,26 @@ class PartiallyPersistentList {
     return this._present.length
   }
   prev() {
-    return this._present.prev
+    if (this._present.prev !== null) {
+      this._present = this._present.prev
+    } else {
+      throw new Exception('Cannot move PRESENT pointer past the dawn of time')
+    }
+    this.timetraveling = true
+    return this
   }
   next() {
-    return this._present.next
+    if (this._present.next !== null) {
+      this._present = this._present.next
+    } else {
+      throw new Exception('Cannot move PRESENT pointer past the end of time')
+    }
+    this.timetraveling = true
+    return this
+  }
+  resetPresent() {
+    this.timetraveling = false
+    this.present = this._lastNode()
   }
 
   // Inspection Methods
@@ -134,25 +149,21 @@ class PartiallyPersistentList {
     return retString
   }
 
-  _appendNodex(newValue, modValue) {
-    const oldLastNode = this._lastNode()
-    const newNode = new persistentNode(newValue)
-
-    newNode.prev = oldLastNode
-    oldLastNode.next = newNode
-    this._present = newNode
-    this.mods.push(modValue)
-  }
-
   _appendNode(newValue, modValue) {
     const oldLastNode = this._lastNode()
-    const newNode = new persistentNode(this._lastNode().val.concat([newValue]))
-
+    let newNode
+    if (Array.isArray(newValue)) {
+      newNode = new persistentNode(this._lastNode().val.concat(newValue))
+    } else {
+      newNode = new persistentNode(this._lastNode().val.concat([newValue]))
+    }
     newNode.prev = oldLastNode
     oldLastNode.next = newNode
-    this._present = newNode
+    if (!this.timetraveling) {
+      this._present = newNode
+    }
     this.mods.push(modValue)
-
+    console.log('appendNode: ', this)
     return this
   }
 
