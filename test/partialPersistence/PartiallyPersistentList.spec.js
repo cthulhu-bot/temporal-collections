@@ -1,4 +1,8 @@
+<<<<<<< HEAD:test/partiallypersistentlist.spec.js
 import List, { isPartiallyPersistentList } from '../src'
+=======
+import { List } from '../../src'
+>>>>>>> 8bb3bda... working on head, tail, and any other collection api pieces that are missing:test/partialPersistence/PartiallyPersistentList.spec.js
 
 describe('Partially Persistent List', () => {
   describe('identity test', () => {
@@ -13,6 +17,10 @@ describe('Partially Persistent List', () => {
       let foo = List()
       expect(foo.toJS()).toEqual([])
     })
+    it('with empty array should return empty array', () => {
+      let foo = List([])
+      expect(foo.toJS()).toEqual([])
+    })
     it('with an element and toJS work', () => {
       let foo = List([1])
       expect(foo.toJS()).toEqual([1])
@@ -22,7 +30,6 @@ describe('Partially Persistent List', () => {
   describe('add', () => {
     it('to an empty list', () => {
       const foo = List([])
-      expect(foo.toJS()).toEqual([])
       expect(foo.toString()).toEqual(
         `Temporal.PartiallyPersistentList((present) [])`,
       )
@@ -35,9 +42,7 @@ describe('Partially Persistent List', () => {
     })
 
     it('should work and be able to chain adds', () => {
-      const foo = List([])
-        .add(1)
-        .add(2)
+      const foo = List([]).add(1).add(2)
       expect(foo.toString()).toEqual(
         `Temporal.PartiallyPersistentList([] -> [1] -> (present) [1,2])`,
       )
@@ -132,7 +137,7 @@ describe('Partially Persistent List', () => {
         `Temporal.PartiallyPersistentList([1] -> [1,2] -> (present) [1,2,3])`,
       )
 
-      foo.present = foo.prev()
+      foo.present = foo.prev() // should this be foo.back(1)? should we support a side effecty api?
       expect(foo.toJS()).toEqual([1, 2])
       expect(foo.prev().toJS()).toEqual([1])
       expect(foo.toString()).toEqual(
@@ -241,18 +246,12 @@ describe('Partially Persistent List', () => {
     })
   })
 
-  // Array methods
-  describe('concat', () => {
-    it('should work for other lists', () => {
-      const foo = List([1, 2])
-      const bar = List([3, 4])
-      expect(foo.concat(bar).toJS()).toEqual([1, 2, 3, 4])
-    })
-    it('should work for arrays', () => {
-      const foo = List([1, 2])
-      const bar = [3, 4]
-      expect(foo.concat(bar).toJS()).toEqual([1, 2, 3, 4])
-    })
+  describe('head', () => {
+    it('should return undefined for an empty array', () => {})
+  })
+
+  describe('tail', () => {
+    it('should retrun undefined for an empty array', () => {})
   })
 
   describe('slice', () => {})
@@ -261,17 +260,13 @@ describe('Partially Persistent List', () => {
 
   describe('shift', () => {})
 
-  describe('unshift', () => {})
+  describe('splice', () => {})
 
-  describe('forEach', () => {})
-
-  describe('for of', () => {})
-
-  // identity tests
-  describe('isPartiallyPersistentList', () => {
-    it('should return true for Lists', () => {
-      const foo = List([1, 2])
-      expect(isPartiallyPersistentList(foo)).toBe(true)
+  describe('collect', () => {
+    it('should return a flattened array of the each nodes value', () => {
+      let foo = List([])
+      const bar = foo.add(1).add(2).collect()
+      expect(bar).toEqual([[], [1], [1, 2]])
     })
   })
 
