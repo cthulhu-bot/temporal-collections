@@ -1,8 +1,4 @@
-<<<<<<< HEAD:test/partiallypersistentlist.spec.js
-import List, { isPartiallyPersistentList } from '../src'
-=======
-import { List } from '../../src'
->>>>>>> 8bb3bda... working on head, tail, and any other collection api pieces that are missing:test/partialPersistence/PartiallyPersistentList.spec.js
+import List, { isPartiallyPersistentList } from '../../src'
 
 describe('Partially Persistent List', () => {
   describe('identity test', () => {
@@ -108,12 +104,7 @@ describe('Partially Persistent List', () => {
       const bar = foo.add(2)
       const baz = bar.add(3)
       expect(baz.prev().toJS()).toEqual([1, 2])
-      expect(
-        baz
-          .prev()
-          .prev()
-          .toJS(),
-      ).toEqual([1])
+      expect(baz.prev().prev().toJS()).toEqual([1])
     })
     it('should return undefined if present is pointing to the root node', () => {})
   })
