@@ -3,14 +3,14 @@ import uuidv1 from 'uuid/v1'
 class PersistentNode {
   constructor(val) {
     this.val = val
-    this.next = null
-    this.prev = null
+    this.next = undefined
+    this.prev = undefined
     this.length = val.length
     this.id = uuidv1()
   }
 
   toString() {
-    return this.next === null ? `[${this.val}]` : `[${this.val}] -> `
+    return this.next === undefined ? `[${this.val}]` : `[${this.val}] -> `
   }
 
   toJS() {
@@ -19,6 +19,11 @@ class PersistentNode {
 
   equals(node) {
     return this.id === node.id
+  }
+
+  // I think this is unreachable code because of the this.next declaration above
+  prev() {
+    return this.prev
   }
 
   inspect() {

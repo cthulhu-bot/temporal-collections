@@ -1,9 +1,13 @@
-import { List } from '../src'
+import { List } from '../../src'
 
 describe('Partially Persistent List', () => {
   describe('constructor', () => {
     it('with no elements should return empty array', () => {
       let foo = List()
+      expect(foo.toJS()).toEqual([])
+    })
+    it('with empty array should return empty array', () => {
+      let foo = List([])
       expect(foo.toJS()).toEqual([])
     })
     it('with an element and toJS work', () => {
@@ -15,7 +19,6 @@ describe('Partially Persistent List', () => {
   describe('add', () => {
     it('to an empty list', () => {
       const foo = List([])
-      expect(foo.toJS()).toEqual([])
       expect(foo.toString()).toEqual(
         `Temporal.PartiallyPersistentList((present) [])`,
       )
@@ -28,9 +31,7 @@ describe('Partially Persistent List', () => {
     })
 
     it('should work and be able to chain adds', () => {
-      const foo = List([])
-        .add(1)
-        .add(2)
+      const foo = List([]).add(1).add(2)
       expect(foo.toString()).toEqual(
         `Temporal.PartiallyPersistentList([] -> [1] -> (present) [1,2])`,
       )
@@ -75,13 +76,29 @@ describe('Partially Persistent List', () => {
   })
 
   describe('prev', () => {
-    it('should return undefined on an empty list', () => {})
+    it('should return undefined on an empty list', () => {
+      const foo = List()
+      expect(foo.prev()).toEqual(undefined)
+    })
     it('should return undefined on a collection with a single commit', () => {
       const foo = List([1])
-      expect(foo.prev()).toEqual(null)
+      expect(foo.prev()).toEqual(undefined)
     })
-    it('should return the previous state of the list when the list has been operated on once', () => {})
-    it('should be able to go back twice on a list that has been operated on twice', () => {})
+    it('should return the previous state of the list when the list has been operated on once', () => {
+      const foo = List()
+      foo.add(1)
+      expect(foo.toJS()).toEqual([1])
+      expect(foo.prev().toJS()).toEqual([])
+    })
+    it('should be able to go back twice on a list that has been operated on twice', () => {
+      const foo = List()
+      foo.add(1).add(2)
+      expect(foo.toJS()).toEqual([1, 2])
+      expect(foo.prev().toJS()).toEqual([1])
+      // should we support these api calls?
+      // expect(foo.prev().prev().prev().toJS()).toEqual(undefined)
+      // expect(foo.prev().prev().prev().prev().toJS()).toEqual(undefined)
+    })
     it('should return undefined if present is pointing to the root node', () => {})
   })
 
@@ -104,7 +121,7 @@ describe('Partially Persistent List', () => {
         `Temporal.PartiallyPersistentList([1] -> [1,2] -> (present) [1,2,3])`,
       )
 
-      foo.present = foo.prev()
+      foo.present = foo.prev() // should this be foo.back(1)? should we support a side effecty api?
       expect(foo.toJS()).toEqual([1, 2])
       expect(foo.prev().toJS()).toEqual([1])
       expect(foo.toString()).toEqual(
@@ -210,6 +227,30 @@ describe('Partially Persistent List', () => {
       let foo = List([1, 2, 3])
       const bar = foo.reduce((acc, x) => acc + x, 0)
       expect(bar).toEqual(6)
+    })
+  })
+
+  describe('head', () => {
+    it('should return undefined for an empty array', () => {})
+  })
+
+  describe('tail', () => {
+    it('should retrun undefined for an empty array', () => {})
+  })
+
+  describe('slice', () => {})
+
+  describe('splice', () => {})
+
+  describe('shift', () => {})
+
+  describe('splice', () => {})
+
+  describe('collect', () => {
+    it('should return a flattened array of the each nodes value', () => {
+      let foo = List([])
+      const bar = foo.add(1).add(2).collect()
+      expect(bar).toEqual([[], [1], [1, 2]])
     })
   })
 

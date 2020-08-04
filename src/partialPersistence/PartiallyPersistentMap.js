@@ -1,8 +1,8 @@
 import { persistentNode } from '../nodes'
 
-class PartiallyPersistentList {
-  constructor(initialList) {
-    this.rootNode = new persistentNode(initialList || [])
+class PartiallyPersistentMap {
+  constructor(initialMap) {
+    this.rootNode = new persistentNode(initialMap || {})
     this._present = this._head = this.rootNode
     this.mods = []
     this.index = 0
@@ -13,7 +13,7 @@ class PartiallyPersistentList {
   add(addVal) {
     if (!this._present.equals(this._lastNode())) {
       throw new Exception(
-        'can only add a node to the end of a PartiallyPersistent list, please set "present" to the end of the list before adding',
+        'can only add a node to the end of a PartiallyPersistent map, please set "present" to the end of the map before adding',
       )
     }
     const oldLastNode = this._lastNode()
@@ -28,7 +28,7 @@ class PartiallyPersistentList {
   // should users just use filter? what's the use case for a mutable remove?
   remove(idx) {
     if (this._lastNode().val.length === 0) {
-      throw 'Attempted to remove from empty list'
+      throw 'Attempted to remove from empty map'
     }
 
     const lastVal = this._lastNode().val
@@ -38,16 +38,16 @@ class PartiallyPersistentList {
   }
 
   // last node value's equality test
-  equals(otherList) {
+  equals(otherMap) {
     let thisVal = this._lastNode().val
-    let otherVal = otherList._lastNode().val
+    let otherVal = otherMap._lastNode().val
     return JSON.stringify(thisVal) === JSON.stringify(otherVal)
   }
 
-  // temporal equality test, i.e. whether one list's timeline is equivalent to another's
-  tequals(otherList) {
+  // temporal equality test, i.e. whether one map's timeline is equivalent to another's
+  tequals(otherMap) {
     let currNode = this.rootNode
-    let otherNode = otherList.rootNode
+    let otherNode = otherMap.rootNode
 
     while (Boolean(currNode)) {
       if (JSON.stringify(currNode.val) !== JSON.stringify(otherNode.val)) {
@@ -60,6 +60,35 @@ class PartiallyPersistentList {
       return true
     }
     return false
+  }
+
+  // Sequence algorithms
+  map(f) {
+    const nextVal = this.lastVal.map(f)
+    this._appendNode(nextVal, `map(${f})`)
+    return this
+  }
+
+  // arr.filter(callback(element[, index, [array]])[, thisArg])
+  /**
+   *
+   * @param {callback} f
+   * @param {type} String | Optional ['timeline', 'mods'] defaults to 'collection'
+   */
+  filter(f, type) {
+    if (type === 'timeline') {
+      return this
+    } else if (type === 'mods') {
+      return this
+    } else {
+      const nextVal = this.lastVal.filter(f)
+      this._appendNode(nextVal, `filter(${f})`)
+      return this
+    }
+  }
+
+  reduce(f, init) {
+    return this.lastVal.reduce(f, init)
   }
 
   collect() {
@@ -75,7 +104,7 @@ class PartiallyPersistentList {
 
   concat(value) {}
 
-  // Temporal Methods involving the 'present' pointer within the list of nodes
+  // Temporal Methods involving the 'present' pointer within the map of nodes
   get present() {
     return this._present
   }
@@ -111,10 +140,10 @@ class PartiallyPersistentList {
     return this.present.val
   }
   toString() {
-    return `Temporal.PartiallyPersistentList(${this._timeline()})`
+    return `Temporal.PartiallyPersistentMap(${this._timeline()})`
   }
   inspect() {
-    return `Temporal.PartiallyPersistentList(${this._timeline()})`
+    return `Temporal.PartiallyPersistentMap(${this._timeline()})`
   }
 
   // Private Methods
@@ -170,70 +199,8 @@ class PartiallyPersistentList {
   }
 
   // Nice to haves
-  head() {
-    if (!this._present.equals(this._lastNode())) {
-      throw new Exception(
-        'please set "present" to the end of the list before calling head()',
-      )
-    }
-    const oldLastNode = this._lastNode()
-    const newNode = this._lastNode().val[0]
-      ? new persistentNode([this._lastNode().val[0]])
-      : new persistentNode([])
-    newNode.prev = oldLastNode
-    oldLastNode.next = newNode
-    this._present = newNode
-    this.mods.push(`head()`)
-    return this
-  }
-
-  tail() {
-    if (!this._present.equals(this._lastNode())) {
-      throw new Exception(
-        'please set "present" to the end of the list before calling tail()',
-      )
-    }
-    const oldLastNode = this._lastNode()
-    const newNode =
-      this._lastNode().val.length > 1
-        ? new persistentNode(this._lastNode().val.slice(1))
-        : new persistentNode([])
-    newNode.prev = oldLastNode
-    oldLastNode.next = newNode
-    this._present = newNode
-    this.mods.push(`tail()`)
-    return this
-  }
-
-  // Sequence algorithms
-  map(f) {
-    const nextVal = this.lastVal.map(f)
-    this._appendNode(nextVal, `map(${f})`)
-    return this
-  }
-
-  // arr.filter(callback(element[, index, [array]])[, thisArg])
-  /**
-   *
-   * @param {callback} f
-   * @param {type} String | Optional ['timeline', 'mods'] defaults to 'collection'
-   */
-  filter(f, type) {
-    if (type === 'timeline') {
-      return this
-    } else if (type === 'mods') {
-      return this
-    } else {
-      const nextVal = this.lastVal.filter(f)
-      this._appendNode(nextVal, `filter(${f})`)
-      return this
-    }
-  }
-
-  reduce(f, init) {
-    return this.lastVal.reduce(f, init)
-  }
-
+  head() {}
+  tail() {}
   indexOf(x) {}
 
   // stretch goals
@@ -261,8 +228,8 @@ class PartiallyPersistentList {
   }
 }
 
-const List = (initialList) => new PartiallyPersistentList(initialList)
+const Map = (initialMap) => new PartiallyPersistentMap(initialMap)
 
 module.exports = {
-  List,
+  Map,
 }
