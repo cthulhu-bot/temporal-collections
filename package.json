@@ -4,19 +4,23 @@
   "description": "",
   "main": "core.js",
   "scripts": {
-    "test": "babel-node spec/run.js",
+    "test": "jest",
     "build": "babel src -d lib && node lib/core.js"
   },
   "keywords": [],
   "author": "Joshua Stupplebeen (cthulhu-bot)",
   "license": "ISC",
   "dependencies": {
-    "babel-cli": "^6.24.0",
-    "uuid": "^3.4.0"
+    "@babel/cli": "^7.17.6",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "babel-jest": "^27.5.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.7.0",
-    "jasmine": "^2.99.0"
+    "jasmine": "^2.99.0",
+    "jest": "^27.5.1"
   }
 }
