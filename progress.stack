@@ -1,10 +1,28 @@
 Working on:
-<<<<<<< HEAD
-* shit these things aren't actually immutable, they'll update in place
+* Make sure root is recorded as initial mod
+* Trying to make string output look like:
+     Temporal.PartiallyPersistentList(
+       (root) -> [] (present)
+     )
+
+     add(1)
+
+     Temporal.PartiallyPersistentList(
+       add(1) -> [1] (present)
+       (root) -> []
+     )
+
+     add(2)
+
+     Temporal.PartiallyPersistentList(
+       add(2) -> [1, 2] (present)
+       add(1) -> [1]
+       (root) -> []
+     )
+* shit these things aren't actually immutable, they'll update in place <- (wtf)
 * why are we using concat in _appendNode?
 * conversion to typescript
 * fixing concat tests
-=======
 * I don't think prev and next make much sense from a collection perspective, only from a node perspective, I think back and forward make more sense
 * temporal map, filter, reduce BECAUSE in order to implement the api foo.prev().prev() was going to require filtering
   the timeline to exclude anything past the last prev() operation, currently prev only returns the previous node so
@@ -12,7 +30,6 @@ Working on:
 * it'd probably be more clear to make "back" and "forward" functions available instead of having to set the present pointer
   it is cool to be able to be able to set the present but because we're working with discreet units of time we don't have to worry about
   moving back and forward one node at a time, and can move back or forward as far as we want
->>>>>>> 8bb3bda... working on head, tail, and any other collection api pieces that are missing
 * test to make sure prev() returns undefined when present is pointing at the root node
 * see if we can clean up the mod text when adding the functions run by map and filter
 * test out the mods during filter and map

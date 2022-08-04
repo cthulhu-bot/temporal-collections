@@ -1,7 +1,7 @@
 import { persistentNode } from '../src/nodes.js'
 
 describe('equals', () => {
-  it('should do a deep equality on arrays', () => {
+  test('should do a deep equality on arrays', () => {
     const node1 = persistentNode([1])
     const node2 = persistentNode([2])
 

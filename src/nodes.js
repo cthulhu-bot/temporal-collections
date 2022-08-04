@@ -1,4 +1,4 @@
-import uuidv1 from 'uuid/v1'
+import { v4 as uuidv4 } from 'uuid'
 
 class PersistentNode {
   constructor(val) {
@@ -6,11 +6,11 @@ class PersistentNode {
     this.next = undefined
     this.prev = undefined
     this.length = val.length
-    this.id = uuidv1()
+    this.id = uuidv4()
   }
 
-  toString() {
-    return this.next === undefined ? `[${this.val}]` : `[${this.val}] -> `
+  toString(isRoot) {
+    return this.next === undefined ? `[${this.val}]` : `[${this.val}] -> \n`
   }
 
   toJS() {
@@ -27,7 +27,12 @@ class PersistentNode {
   }
 
   inspect() {
-    return `PersistentNode(${this.val})`
+    return `PersistentNode(
+      id:   ${this.id}
+      val:  ${this.val}
+      prev: ${this.prev}
+      next: ${this.next}
+    )`
   }
 }
 

@@ -2,9 +2,9 @@ import { persistentNode } from '../nodes'
 
 class PartiallyPersistentList {
   constructor(initialList) {
-    this.rootNode = new persistentNode(initialList || [])
+    this.rootNode = persistentNode(initialList || [])
     this._present = this.rootNode
-    this.mods = []
+    this.mods = ['(root)']
     this.index = 0
     this.lastVal = this._lastNode().val
     this.val = this._present.val
@@ -21,7 +21,7 @@ class PartiallyPersistentList {
     return this._appendNode(addVal, `add(${addVal})`)
   }
 
-  // should users just use filter? what's the use case for a mutable remove?
+  // hello it's not mutable, it's just appending another mod
   remove(idx) {
     if (this._lastNode().val.length === 0) {
       throw 'Attempted to remove from empty list'
@@ -29,7 +29,7 @@ class PartiallyPersistentList {
 
     const lastVal = this._lastNode().val
     lastVal.delete(idx) // <= FIGURE OUT THIS
-    this._lastNode().next = new persistentNode(lastVal)
+    this._lastNode().next = persistentNode(lastVal)
     return this
   }
 
@@ -85,30 +85,35 @@ class PartiallyPersistentList {
   get present() {
     return this._present
   }
+
   set present(node) {
     this._present = node
   }
+
   length() {
     return this._present.length
   }
+
   prev() {
     if (this._present.prev !== null) {
       this._present = this._present.prev
     } else {
-      throw new Exception('Cannot move PRESENT pointer past the dawn of time')
+      throw new Exception(`Cannot access data prior to the dawn of time`)
     }
     this.timetraveling = true
     return this
   }
+
   next() {
     if (this._present.next !== null) {
       this._present = this._present.next
     } else {
-      throw new Exception('Cannot move PRESENT pointer past the end of time')
+      throw new Exception('Cannot access data past the end of time')
     }
     this.timetraveling = true
     return this
   }
+
   resetPresent() {
     this.timetraveling = false
     this.present = this._lastNode()
@@ -133,22 +138,42 @@ class PartiallyPersistentList {
     return this._present.val
   }
   toString() {
-    return `Temporal.PartiallyPersistentList(${this._timeline()})`
+    return `Temporal.PartiallyPersistentList(
+    ${this._timeline()}
+    )`
   }
   inspect() {
-    return `Temporal.PartiallyPersistentList(${this._timeline()})`
+    return `Temporal.PartiallyPersistentList(
+    ${this._timeline()}
+    )`
   }
 
   // Private Methods
   _timeline() {
     let retString = ''
     let currNode = this.rootNode
+    let i = 0
+
     while (!currNode.equals(this._lastNode())) {
-      if (currNode.equals(this._present)) {
+      const isRoot = this.rootNode.equals(currNode)
+      const isPresent = currNode.equals(this._present)
+
+      if (isRoot) {
+        retString += '    '
+      }
+
+      if (isPresent) {
         retString += '(present) '
       }
-      retString += currNode.toString()
+
+      retString += currNode.toString(isRoot)
+      retString += `    ${this.mods[i]} -> `
+
       currNode = currNode.next
+    }
+
+    if (this._lastNode().equals(this.rootNode)) {
+      retString += '    '
     }
     if (this._lastNode().equals(this._present)) {
       retString += '(present) '
@@ -161,9 +186,9 @@ class PartiallyPersistentList {
     const oldLastNode = this._lastNode()
     let newNode
     if (Array.isArray(newValue)) {
-      newNode = new persistentNode(this._lastNode().val.concat(newValue))
+      newNode = persistentNode(this._lastNode().val.concat(newValue))
     } else {
-      newNode = new persistentNode(this._lastNode().val.concat([newValue]))
+      newNode = persistentNode(this._lastNode().val.concat([newValue]))
     }
     newNode.prev = oldLastNode
     oldLastNode.next = newNode
@@ -171,7 +196,6 @@ class PartiallyPersistentList {
       this._present = newNode
     }
     this.mods.push(modValue)
-    console.log('appendNode: ', this)
     return this
   }
 
@@ -208,8 +232,8 @@ class PartiallyPersistentList {
     }
     const oldLastNode = this._lastNode()
     const newNode = this._lastNode().val[0]
-      ? new persistentNode([this._lastNode().val[0]])
-      : new persistentNode([])
+      ? persistentNode([this._lastNode().val[0]])
+      : persistentNode([])
     newNode.prev = oldLastNode
     oldLastNode.next = newNode
     this._present = newNode
@@ -226,8 +250,8 @@ class PartiallyPersistentList {
     const oldLastNode = this._lastNode()
     const newNode =
       this._lastNode().val.length > 1
-        ? new persistentNode(this._lastNode().val.slice(1))
-        : new persistentNode([])
+        ? persistentNode(this._lastNode().val.slice(1))
+        : persistentNode([])
     newNode.prev = oldLastNode
     oldLastNode.next = newNode
     this._present = newNode
