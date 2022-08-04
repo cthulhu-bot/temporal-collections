@@ -24,17 +24,20 @@ describe('Partially Persistent List', () => {
   })
 
   describe('add', () => {
-    it('to an empty list', () => {
+    fit('to an empty list', () => {
       const foo = List([])
-      expect(foo.toString()).toEqual(
-        `Temporal.PartiallyPersistentList((present) [])`,
-      )
+      // expect(foo.toString()).toEqual(
+      //   `Temporal.PartiallyPersistentList((present) [])`,
+      // )
 
+      console.log(foo.toString())
       const bar = foo.add(1)
-      expect(bar.toJS()).toEqual([1])
-      expect(bar.toString()).toEqual(
-        `Temporal.PartiallyPersistentList([] -> (present) [1])`,
-      )
+      console.log(bar.toString())
+
+      // expect(bar.toJS()).toEqual([1])
+      // expect(bar.toString()).toEqual(
+      //   `Temporal.PartiallyPersistentList([] -> (present) [1])`,
+      // )
     })
 
     it('should work and be able to chain adds', () => {

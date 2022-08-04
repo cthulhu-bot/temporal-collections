@@ -4,7 +4,7 @@ class PartiallyPersistentList {
   constructor(initialList) {
     this.rootNode = persistentNode(initialList || [])
     this._present = this.rootNode
-    this.mods = []
+    this.mods = ['(root)']
     this.index = 0
     this.lastVal = this._lastNode().val
     this.val = this._present.val
@@ -138,22 +138,42 @@ class PartiallyPersistentList {
     return this._present.val
   }
   toString() {
-    return `Temporal.PartiallyPersistentList(${this._timeline()})`
+    return `Temporal.PartiallyPersistentList(
+    ${this._timeline()}
+    )`
   }
   inspect() {
-    return `Temporal.PartiallyPersistentList(${this._timeline()})`
+    return `Temporal.PartiallyPersistentList(
+    ${this._timeline()}
+    )`
   }
 
   // Private Methods
   _timeline() {
     let retString = ''
     let currNode = this.rootNode
+    let i = 0
+
     while (!currNode.equals(this._lastNode())) {
-      if (currNode.equals(this._present)) {
+      const isRoot = this.rootNode.equals(currNode)
+      const isPresent = currNode.equals(this._present)
+
+      if (isRoot) {
+        retString += '    '
+      }
+
+      if (isPresent) {
         retString += '(present) '
       }
-      retString += currNode.toString()
+
+      retString += currNode.toString(isRoot)
+      retString += `    ${this.mods[i]} -> `
+
       currNode = currNode.next
+    }
+
+    if (this._lastNode().equals(this.rootNode)) {
+      retString += '    '
     }
     if (this._lastNode().equals(this._present)) {
       retString += '(present) '

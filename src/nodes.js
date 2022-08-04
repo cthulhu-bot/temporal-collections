@@ -9,8 +9,8 @@ class PersistentNode {
     this.id = uuidv4()
   }
 
-  toString() {
-    return this.next === undefined ? `[${this.val}]` : `[${this.val}] -> `
+  toString(isRoot) {
+    return this.next === undefined ? `[${this.val}]` : `[${this.val}] -> \n`
   }
 
   toJS() {
@@ -27,7 +27,12 @@ class PersistentNode {
   }
 
   inspect() {
-    return `PersistentNode(${this.val})`
+    return `PersistentNode(
+      id:   ${this.id}
+      val:  ${this.val}
+      prev: ${this.prev}
+      next: ${this.next}
+    )`
   }
 }
 
