@@ -3,8 +3,6 @@
 // only the mods up until mods.length-2 should be applied
 
 const applyMods = (init = [], mods = []) => {
-  const removeElement = (arr, el) => {}
-
   const arr = mods.reduce((acc, mod) => {
     let modifier, element
     ;({ modifier, element } = mod)
@@ -22,7 +20,7 @@ const applyMods = (init = [], mods = []) => {
 
 export const List = (init = []) => {
   let persistentList = init
-  let mods = []
+  let mods: string[] = []
 
   return {
     add: (val) => {

@@ -5,18 +5,28 @@
   "main": "core.js",
   "scripts": {
     "test": "babel-node spec/run.js",
-    "build": "babel src -d lib && node lib/core.js"
+    "build:old": "babel src -d lib && node lib/core.js",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline"
   },
   "keywords": [],
   "author": "Joshua Stupplebeen (cthulhu-bot)",
   "license": "ISC",
   "dependencies": {
+    "@types/uuid": "^3.4.4",
     "babel-cli": "^6.24.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.3.3",
+    "awesome-typescript-loader": "^5.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
-    "jasmine": "^2.8.0"
+    "jasmine": "^2.8.0",
+    "source-map-loader": "^0.2.4",
+    "typescript": "^3.4.5"
   }
 }

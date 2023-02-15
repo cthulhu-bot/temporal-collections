@@ -34,9 +34,9 @@ class PartiallyPersistentList {
   }
 
   // last node value's equality test
-  equals(otherList) {
-    let thisVal = this._lastNode().val
-    let otherVal = otherList._lastNode().val
+  equals(otherList: any): boolean {
+    let thisVal: any = this._lastNode().val
+    let otherVal: any = otherList._lastNode().val
     return JSON.stringify(thisVal) === JSON.stringify(otherVal)
   }
 
@@ -61,6 +61,7 @@ class PartiallyPersistentList {
   // Sequence algorithms
   map(f) {
     const nextVal = this.lastVal.map(f)
+    console.log('nextVal: ', nextVal)
     this._appendNode(nextVal, `map(${f})`)
     return this
   }
@@ -80,10 +81,11 @@ class PartiallyPersistentList {
       throw 'Only able to concat a PartiallyPersistentList to another PartiallyPersistentList or an Array'
     }
 
-    // console.log('lastVal: ', this.lastVal)
-    this._appendNode(value, `concat(${value})`)
-    // console.log('lastVal: ', this.lastVal)
-    // console.log(this)
+    if (isPartiallyPersistentList(value)) {
+      this._appendNode(value.toJS(), `concat(${value})`)
+    } else {
+      this._appendNode(value, `concat(${value})`)
+    }
     return this
   }
 
@@ -101,7 +103,7 @@ class PartiallyPersistentList {
     if (this._present.prev !== null) {
       this._present = this._present.prev
     } else {
-      throw new Exception('Cannot move PRESENT pointer past the dawn of time')
+      throw 'Cannot move PRESENT pointer past the dawn of time'
     }
     this.timetraveling = true
     return this
@@ -110,7 +112,7 @@ class PartiallyPersistentList {
     if (this._present.next !== null) {
       this._present = this._present.next
     } else {
-      throw new Exception('Cannot move PRESENT pointer past the end of time')
+      throw 'Cannot move PRESENT pointer past the end of time'
     }
     this.timetraveling = true
     return this
@@ -152,11 +154,12 @@ class PartiallyPersistentList {
   _appendNode(newValue, modValue) {
     const oldLastNode = this._lastNode()
     let newNode
-    if (Array.isArray(newValue)) {
-      newNode = new persistentNode(this._lastNode().val.concat(newValue))
-    } else {
-      newNode = new persistentNode(this._lastNode().val.concat([newValue]))
-    }
+    newNode = new persistentNode(newValue)
+    // if (Array.isArray(newValue)) {
+    //   newNode = new persistentNode(this._lastNode().val.concat(newValue))
+    // } else {
+    //   newNode = new persistentNode(this._lastNode().val.concat([newValue]))
+    // }
     newNode.prev = oldLastNode
     oldLastNode.next = newNode
     if (!this.timetraveling) {
@@ -225,8 +228,8 @@ class PartiallyPersistentList {
 }
 
 // identity methods
-export function isPartiallyPersistentList(value) {
+export function isPartiallyPersistentList(value: any): boolean {
   return value._isPartiallyPersistentList || false
 }
 
-export default (initialList) => new PartiallyPersistentList(initialList)
+export default (initialList: any[]) => new PartiallyPersistentList(initialList)

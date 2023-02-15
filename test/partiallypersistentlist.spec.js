@@ -218,7 +218,7 @@ describe('Partially Persistent List', () => {
   })
 
   describe('map', () => {
-    it('should replicate mapping behavior on an array for the last value', () => {
+    fit('should replicate mapping behavior on an array for the last value', () => {
       let foo = List([1, 2, 3])
       foo = foo.map((x) => ++x)
       expect(foo.toJS()).toEqual([2, 3, 4])

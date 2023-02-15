@@ -1,4 +1,4 @@
-import { persistentNode } from '../src/nodes.js'
+import { persistentNode } from '../src/nodes.ts'
 
 describe('equals', () => {
   it('should do a deep equality on arrays', () => {

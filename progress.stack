@@ -1,4 +1,8 @@
 Working on:
+* remove concat from _appendNode its a leaky abstraction
+* move concat array, concat single value and move them up a level
+* appendNode should only we concerned with moving pointers to new node
+* might need to move them to callers because map needs to replace and not concat
 * shit these things aren't actually immutable, they'll update in place
 * why are we using concat in _appendNode?
 * conversion to typescript
